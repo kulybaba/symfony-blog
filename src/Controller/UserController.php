@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,15 +16,17 @@ class UserController extends AbstractController
      */
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
-        $form = $this->createForm(LoginType::class);
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        $user = new User();
+        $user->setEmail($lastUsername);
+
+        $form = $this->createForm(LoginType::class, $user);
+
         return $this->render('user/login.html.twig', [
-            'last_username' => $lastUsername,
             'error' => $error,
             'form' => $form->createView()
         ]);
