@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
 class User implements UserInterface
 {
@@ -18,6 +21,11 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message="The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
      * @var string
      * @ORM\Column(type="string", length=180, unique=true)
      */
@@ -29,22 +37,48 @@ class User implements UserInterface
     private $roles = [];
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="20",
+     *     min="2",
+     *     maxMessage="First name must contain maximum 20 characters.",
+     *     minMessage="First name must contain minimum 2 characters."
+     * )
      * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $firstName;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="20",
+     *     min="2",
+     *     maxMessage="Last name must contain maximum 20 characters.",
+     *     minMessage="Last name must contain minimum 2 characters."
+     * )
      * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $lastName;
+
+    public function __construct()
+    {
+        $this->roles = ['ROLE_USER'];
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +139,22 @@ class User implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string $plainPassword
+     */
+    public function setPlainPassword(string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     /**
