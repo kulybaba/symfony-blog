@@ -40,10 +40,9 @@ class UserController extends AbstractController
     /**
      * @Route("/registration", name="app_registration")
      * @param Request $request
-     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      */
-    public function registrationAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registrationAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -51,9 +50,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
-            $user->setPassword($password);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
