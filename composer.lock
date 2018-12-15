@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b53199e62e1d616e1f813dac6d71255",
+    "content-hash": "6483a814c79cbc97b382a723d88dfe38",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -5136,16 +5136,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.7",
+            "version": "v4.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd"
+                "reference": "1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
-                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db",
+                "reference": "1c4e2f368a09cd33bf4b6e4a4a32b361a16ef1db",
                 "shasum": ""
             },
             "require": {
@@ -5189,20 +5189,20 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2018-07-26T09:10:45+00:00"
+            "time": "2018-11-26T10:26:29+00:00"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v4.1.7",
+            "version": "v4.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "d67de79a70a27d93c92c47f37ece958bf8de4d8a"
+                "reference": "9e4dc57949853315561f0cd5eb84d0707465502a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/d67de79a70a27d93c92c47f37ece958bf8de4d8a",
-                "reference": "d67de79a70a27d93c92c47f37ece958bf8de4d8a",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/9e4dc57949853315561f0cd5eb84d0707465502a",
+                "reference": "9e4dc57949853315561f0cd5eb84d0707465502a",
                 "shasum": ""
             },
             "require": {
@@ -5242,7 +5242,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2018-10-02T16:36:10+00:00"
+            "time": "2018-11-11T19:51:29+00:00"
         },
         {
             "name": "symfony/debug-bundle",
