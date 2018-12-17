@@ -5,28 +5,95 @@
         <title>{% block title %}Symfony Blog{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-        {% endblock %}
-        {% block scripts %}
-            <script src="libs/jquery/jquery-3.3.1.min.js"></script>
-            <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="css/main.css" />
         {% endblock %}
     </head>
     <body>
-        <header>
-            {% block header %}
-                <ul style="padding: 0; margin: 10px;">
-                    <li style="display: inline;"><a href="{{ path('article') }}">Articles</a></li>
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <li style="display: inline;"><a href="{{ path('app_logout') }}">Logout ({{ app.user.firstName }} {{ app.user.lastName }})</a></li>
-                    {% else %}
-                        <li style="display: inline;"><a href="{{ path('app_login') }}">Login</a></li>
-                        <li style="display: inline;"><a href="{{ path('app_registration') }}">Registration</a></li>
-                    {% endif %}
-                </ul>
-            {% endblock %}
-        </header>
+        <div class="container">
+            <div class="row">
+                <header>
+                    {% block header %}
+                        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                    <a class="navbar-brand" href="{{ path('article') }}">Symfony Blog</a>
+                                </div>
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav">
+                                        <li><a href="{{ path('article') }}">Home</a></li>
+                                        <li><a href="#">Feedback</a></li>
+                                    </ul>
+                                    <form class="navbar-form navbar-left">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Search</button>
+                                    </form>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="#">Profile</a></li>
+                                                    <li><a href="#">My articles</a></li>
+                                                    <li><a href="#">Settings</a></li>
+                                                    <li role="separator" class="divider"></li>
+                                                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li><a href="{{ path('app_login') }}">Login</a></li>
+                                            <li><a href="{{ path('app_registration') }}">Registration</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    {% endblock %}
+                </header>
+            </div>
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+            <div class="row">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for i in 1..10 %}
+                            <div class="item {% if i == 1 %}active{% endif %}">
+                                <img src="{{ asset('images/header/slide_' ~ i ~ '.jpg') }}" alt="">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% block body %}{% endblock %}
+            </div>
+
+            <div class="row">
+                <footer class="footer">
+                    {% block footer %}
+                        <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
+                            <div class="container">
+                                <p class="navbar-text pull-left"><b>Developer:</b> Petro Kulybaba</p>
+                                <p class="navbar-text pull-right">&copy; 2018</p>
+                            </div>
+                        </nav>
+                    {% endblock %}
+                </footer>
+            </div>
+        </div>
+
+        {% block javascripts %}
+            <script src="libs/jquery/jquery-3.3.1.min.js"></script>
+            <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+        {% endblock %}
     </body>
 </html>
