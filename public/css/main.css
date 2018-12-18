@@ -1,4 +1,28 @@
 body {
-    padding-top: 51px;
-    padding-bottom: 51px;
+    margin-bottom: 60px;
+}
+
+.carousel {
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.panel {
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #696969;
+}
+
+.panel > .panel-heading {
+    text-align: center;
+    color: #dcdcdc;
+    background-color: #696969;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
 }
