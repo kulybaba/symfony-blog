@@ -4,96 +4,198 @@
         <meta charset="UTF-8">
         <title>{% block title %}Symfony Blog{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" href="css/main.css" />
+            <link rel="stylesheet" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
         {% endblock %}
     </head>
     <body>
+        {% block header %}
+            <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{ path('article') }}">Symfony Blog</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ path('article') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span> Contacts</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#writeToUs"><span class="glyphicon glyphicon-send"></span> Write to us</a></li>
+                        </ul>
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search articles">
+                            </div>
+                            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+                        </form>
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li><a href="#" id="link" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18"> {{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-book"></span> My articles</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Liked articles</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li><a href="{{ path('app_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                                <li><a href="{{ path('app_registration') }}"><span class="glyphicon glyphicon-edit"></span> Registration</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        {% endblock %}
+
         <div class="container">
             <div class="row">
-                <header>
-                    {% block header %}
-                        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
-                            <div class="container">
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                    <a class="navbar-brand" href="{{ path('article') }}">Symfony Blog</a>
+                {% block slider %}
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for i in 1..10 %}
+                                <div class="item {% if i == 1 %}active{% endif %}">
+                                    <img src="{{ asset('images/header/slide_' ~ i ~ '.jpg') }}" class="img-rounded">
+                                    <div class="carousel-caption">
+                                    </div>
                                 </div>
-                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                    <ul class="nav navbar-nav">
-                                        <li><a href="{{ path('article') }}">Home</a></li>
-                                        <li><a href="#">Feedback</a></li>
-                                    </ul>
-                                    <form class="navbar-form navbar-left">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Search">
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Search</button>
-                                    </form>
-                                    <ul class="nav navbar-nav navbar-right">
-                                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                            <li class="dropdown">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Profile</a></li>
-                                                    <li><a href="#">My articles</a></li>
-                                                    <li><a href="#">Settings</a></li>
-                                                    <li role="separator" class="divider"></li>
-                                                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
-                                                </ul>
-                                            </li>
-                                        {% else %}
-                                            <li><a href="{{ path('app_login') }}">Login</a></li>
-                                            <li><a href="{{ path('app_registration') }}">Registration</a></li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    {% endblock %}
-                </header>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endblock %}
             </div>
 
             <div class="row">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for i in 1..10 %}
-                            <div class="item {% if i == 1 %}active{% endif %}">
-                                <img src="{{ asset('images/header/slide_' ~ i ~ '.jpg') }}" alt="">
-                                <div class="carousel-caption">
+                <div class="col-md-8">
+                    {% block body %}{% endblock %}
+                </div>
+                <div class="col-md-4">
+                    {% block left_side %}
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="nav nav-sidebar">
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 1</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 2</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 3</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 4</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 5</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 6</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 7</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 8</a></li>
+                                    </ul>
                                 </div>
                             </div>
-                        {% endfor %}
-                    </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="nav nav-sidebar">
+                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 1</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 2</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 3</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 4</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 5</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag1</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag2</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag3</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag4</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag5</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag6</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag7</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag8</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag9</a>,
+                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag10</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="nav nav-sidebar">
+                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;October, 2018</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;November, 2018</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;December, 2018</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
                 </div>
             </div>
 
             <div class="row">
-                {% block body %}{% endblock %}
+                {% block footer %}
+                    <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
+                        <div class="container">
+                            <p class="navbar-text pull-left"><b>Developer:</b> Petro Kulybaba</p>
+                            <p class="navbar-text pull-right">&copy; 2018</p>
+                        </div>
+                    </nav>
+                {% endblock %}
             </div>
+        </div>
 
-            <div class="row">
-                <footer class="footer">
-                    {% block footer %}
-                        <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
-                            <div class="container">
-                                <p class="navbar-text pull-left"><b>Developer:</b> Petro Kulybaba</p>
-                                <p class="navbar-text pull-right">&copy; 2018</p>
+
+        <!-- Write to us modal -->
+        <div class="modal fade" id="writeToUs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-send"></span> Write to us</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="name" class="control-label">Name:</label>
+                                <input type="text" class="form-control" id="name">
                             </div>
-                        </nav>
-                    {% endblock %}
-                </footer>
+                            <div class="form-group">
+                                <label for="message" class="control-label">Message:</label>
+                                <textarea class="form-control" id="message"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
+                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Write</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         {% block javascripts %}
-            <script src="libs/jquery/jquery-3.3.1.min.js"></script>
-            <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+            <script src="{{ asset('libs/jquery/jquery-3.3.1.min.js') }}"></script>
+            <script src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('js/common.js') }}"></script>
         {% endblock %}
     </body>
 </html>
