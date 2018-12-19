@@ -82,6 +82,11 @@ class User implements UserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Profile", cascade={"persist", "remove"})
+     */
+    private $profile;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -233,6 +238,18 @@ class User implements UserInterface
                 $article->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): self
+    {
+        $this->profile = $profile;
 
         return $this;
     }
