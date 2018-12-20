@@ -6,7 +6,7 @@ use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController extends AbstractController
+class SiteController extends AbstractController
 {
     /**
      * @Route("/", name="article")
@@ -15,8 +15,8 @@ class ArticleController extends AbstractController
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
 
-        return $this->render('article/index.html.twig', [
-            'articles' => $articles
+        return $this->render('site/index.html.twig', [
+            'articles' => $articles,
         ]);
     }
 }

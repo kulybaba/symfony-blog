@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if articles %}
+            {% for article in articles %}
+                <p><b>{{ article.title }}</b></p>
+                <p><i>{{ article.shortText }}</i></p>
+            {% endfor %}
+        {% else %}
+            <h3>Empty!</h3>
+        {% endif %}
+    </div>
+{% endblock %}
