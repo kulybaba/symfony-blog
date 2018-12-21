@@ -19,11 +19,11 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ path('article') }}">Symfony Blog</a>
+                        <a class="navbar-brand" href="{{ path('app_site_index') }}">Symfony Blog</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ path('article') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Home</a></li>
+                            <li><a href="{{ path('app_site_index') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Home</a></li>
                             <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Contacts</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#writeToUs"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Write to us</a></li>
                         </ul>
@@ -35,7 +35,7 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li><a href="#" id="link" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                                <li><a href="#" id="create_article" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18">&nbsp;&nbsp;{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -82,7 +82,7 @@
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</h3>
                                 </div>
                                 <div class="panel-body">
                                     {{ render(controller('App\\Controller\\CategoryController::listAction')) }}
@@ -92,7 +92,7 @@
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="nav nav-sidebar">
@@ -108,7 +108,7 @@
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
                                 </div>
                                 <div class="panel-body">
                                     <a href="#"><span class="glyphicon glyphicon-tag"></span> tag1</a>,
@@ -127,7 +127,7 @@
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="nav nav-sidebar">

@@ -14,9 +14,16 @@ body {
 }
 
 .panel > .panel-heading {
-    text-align: center;
     color: #dcdcdc;
     background-color: #696969;
+}
+
+.panel > .panel-footer {
+    text-align: right;
+}
+
+.panel-article {
+    margin-right: 20px;
 }
 
 a {
@@ -25,4 +32,9 @@ a {
 
 a:hover {
     color: black;
+}
+
+.breadcrumb {
+    margin-right: 20px;
+    border: 1px solid #696969;
 }

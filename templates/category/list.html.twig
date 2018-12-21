@@ -1,7 +1,7 @@
 <ul class="nav nav-sidebar">
     {% if categories %}
         {% for category in categories %}
-            <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;{{ category.name }}</a></li>
+            <li><a href="{{ path('app_article_category', {id: category.id}) }}"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;{{ category.name }}</a></li>
         {% endfor %}
     {% endif %}
 </ul>

@@ -1,3 +1,4 @@
 $(document).ready(function() {
-    $('#link').tooltip({ placement: "bottom" });
+    $('#create_article').tooltip({ placement: "bottom" });
+    $('.read_more').tooltip({ placement: "bottom" });
 });
