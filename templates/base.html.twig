@@ -111,16 +111,7 @@
                                     <h3 class="panel-title text-center"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag1</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag2</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag3</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag4</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag5</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag6</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag7</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag8</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag9</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag10</a>
+                                    {{ render(controller('App\\Controller\\TagController::listAction')) }}
                                 </div>
                             </div>
                         </div>
