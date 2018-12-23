@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,6 +39,20 @@ class ArticleController extends AbstractController
         return $this->render('article/tag.html.twig', [
             'articles' => $articles,
             'tag' => $tag
+        ]);
+    }
+
+    public function lastAction($limit = 5)
+    {
+        $em = $this->getDoctrine()->getRepository(Article::class);
+        $query = $em->createQueryBuilder('a')
+            ->select('a.id', 'a.title')
+            ->orderBy('a.created', 'DESC');
+        $query->setMaxResults($limit);
+        $articles = $query->getQuery()->getResult();
+
+        return $this->render('article/last.html.twig', [
+            'articles' => $articles
         ]);
     }
 }

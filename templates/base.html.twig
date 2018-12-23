@@ -96,11 +96,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <ul class="nav nav-sidebar">
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 1</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 2</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 3</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 4</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 5</a></li>
+                                        {{ render(controller('App\\Controller\\ArticleController::lastAction')) }}
                                     </ul>
                                 </div>
                             </div>

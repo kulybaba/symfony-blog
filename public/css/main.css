@@ -2,6 +2,11 @@ body {
     margin-bottom: 60px;
 }
 
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .carousel {
     margin-top: 70px;
     margin-bottom: 20px;
