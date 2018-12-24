@@ -19,13 +19,13 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ path('article') }}">Symfony Blog</a>
+                        <a class="navbar-brand" href="{{ path('app_site_index') }}">Symfony Blog</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="{{ path('article') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span> Contacts</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#writeToUs"><span class="glyphicon glyphicon-send"></span> Write to us</a></li>
+                            <li><a href="{{ path('app_site_index') }}"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Home</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;Contacts</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#writeToUs"><span class="glyphicon glyphicon-send"></span>&nbsp;&nbsp;Write to us</a></li>
                         </ul>
                         <form class="navbar-form navbar-left">
                             <div class="form-group">
@@ -35,20 +35,20 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li><a href="#" id="link" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                                <li><a href="#" id="create_article" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18"> {{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18">&nbsp;&nbsp;{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> My profile</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-book"></span> My articles</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Liked articles</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My profile</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;My articles</a></li>
+                                        <li><a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Liked articles</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                                        <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a></li>
                                     </ul>
                                 </li>
                             {% else %}
-                                <li><a href="{{ path('app_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                                <li><a href="{{ path('app_registration') }}"><span class="glyphicon glyphicon-edit"></span> Registration</a></li>
+                                <li><a href="{{ path('app_login') }}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;Login</a></li>
+                                <li><a href="{{ path('app_registration') }}"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Registration</a></li>
                             {% endif %}
                         </ul>
                     </div>
@@ -78,22 +78,25 @@
                     {% block body %}{% endblock %}
                 </div>
                 <div class="col-md-4">
-                    {% block left_side %}
+                    {% block right_side %}
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</h3>
+                                </div>
+                                <div class="panel-body">
+                                    {{ render(controller('App\\Controller\\CategoryController::listAction')) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
                                 </div>
                                 <div class="panel-body">
                                     <ul class="nav nav-sidebar">
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 1</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 2</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 3</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 4</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 5</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 6</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 7</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-menu-right"></span>&nbsp;&nbsp;Category 8</a></li>
+                                        {{ render(controller('App\\Controller\\ArticleController::lastAction')) }}
                                     </ul>
                                 </div>
                             </div>
@@ -101,49 +104,20 @@
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <ul class="nav nav-sidebar">
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 1</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 2</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 3</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 4</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;Article 5</a></li>
-                                    </ul>
+                                    {{ render(controller('App\\Controller\\TagController::listAction')) }}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</h3>
+                                    <h3 class="panel-title text-center"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag1</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag2</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag3</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag4</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag5</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag6</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag7</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag8</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag9</a>,
-                                    <a href="#"><span class="glyphicon glyphicon-tag"></span> tag10</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="nav nav-sidebar">
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;October, 2018</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;November, 2018</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;December, 2018</a></li>
-                                    </ul>
+                                    {{ render(controller('App\\Controller\\ArchiveController::listAction')) }}
                                 </div>
                             </div>
                         </div>

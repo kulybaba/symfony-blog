@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('articles.html.twig', { 'articles': articles }) }}
+    </div>
+{% endblock %}
