@@ -1,0 +1,9 @@
+<ul class="nav nav-sidebar">
+    {% if archive %}
+        {% for date in archive %}
+            <li><a href="{{ path('app_article_archive', {'year': date.year, 'month': date.month}) }}"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;{{ date.month }}, {{ date.year }}</a></li>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">(No archive)</p>
+    {% endif %}
+</ul>

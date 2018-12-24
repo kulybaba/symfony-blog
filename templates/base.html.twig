@@ -117,11 +117,7 @@
                                     <h3 class="panel-title text-center"><span class="glyphicon glyphicon-hdd"></span>&nbsp;&nbsp;Archive</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <ul class="nav nav-sidebar">
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;October, 2018</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;November, 2018</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;December, 2018</a></li>
-                                    </ul>
+                                    {{ render(controller('App\\Controller\\ArchiveController::listAction')) }}
                                 </div>
                             </div>
                         </div>

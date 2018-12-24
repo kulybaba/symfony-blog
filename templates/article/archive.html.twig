@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog - Archive - {{ month }}, {{ year }}{% endblock %}
+
+{% block body %}
+    {{ include('breadcrumb.html.twig', { 'crumb': 'Archive', 'active': month ~ ', ' ~ year  }) }}
+    <div class="row">
+        {{ include('articles.html.twig', { 'articles': articles }) }}
+    </div>
+{% endblock %}

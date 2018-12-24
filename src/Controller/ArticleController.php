@@ -55,4 +55,28 @@ class ArticleController extends AbstractController
             'articles' => $articles
         ]);
     }
+
+    /**
+     * @Route("/archive/{year<\d+>}/{month<\d+>}")
+     * @param $month
+     * @param $year
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function archiveAction($month, $year)
+    {
+        $em = $this->getDoctrine()->getRepository(Article::class);
+        $query = $em->createQueryBuilder('a')
+            ->select('a.id', 'a.title', 'a.short_text AS shortText')
+            ->where('Month(a.created) = :month', 'Year(a.created) = :year')
+            ->orderBy('a.created', 'DESC');
+        $query->setParameter('month', $month);
+        $query->setParameter('year', $year);
+        $articles = $query->getQuery()->getResult();
+
+        return $this->render('article/archive.html.twig', [
+            'articles' => $articles,
+            'year' => $year,
+            'month' => $month
+        ]);
+    }
 }
