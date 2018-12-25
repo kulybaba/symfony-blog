@@ -7,6 +7,11 @@ p {
     margin-bottom: 0px;
 }
 
+hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .carousel {
     margin-top: 70px;
     margin-bottom: 20px;

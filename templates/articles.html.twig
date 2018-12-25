@@ -8,16 +8,20 @@
                 {{ article.shortText }}
             </div>
             <div class="panel-footer">
-                <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
-                <span class="pull-right">
-                    <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                    <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                <div class="row">
+                    <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="{{ path('app_article_view', {'id': article.id}) }}" class="read_more" data-toggle="tooltip" title="Read more"><span class="glyphicon glyphicon-option-horizontal"></span></a>
-                </span>
+                    <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;{{ article.tag.count }}
+                    <span class="pull-right">
+                        <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{ path('app_article_view', {'id': article.id}) }}" class="read_more" data-toggle="tooltip" title="Read more"><span class="glyphicon glyphicon-option-horizontal"></span></a>
+                    </span>
+                </div>
             </div>
         </div>
     {% endfor %}

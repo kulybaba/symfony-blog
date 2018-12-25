@@ -89,9 +89,11 @@ class ArticleController extends AbstractController
     public function viewAction($id)
     {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        $tags = $article->getTag();
 
         return $this->render('article/view.html.twig', [
             'article' => $article,
+            'tags' => $tags
         ]);
     }
 }

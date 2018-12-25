@@ -13,6 +13,10 @@
                 <div class="panel-body">
                     {{ article.text }}
                 </div>
+                <hr>
+                <div class="panel-body">
+                    {{ include('tag/list.html.twig', {'tags': tags}) }}
+                </div>
                 <div class="panel-footer">
                     <div class="row">
                         <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
