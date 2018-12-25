@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog - Article - {{ article.title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Article', 'active': article.id }) }}
+        {% if article and article|length > 0 %}
+            <div class="panel panel-default panel-article">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;{{ article.title }}</h3>
+                </div>
+                <div class="panel-body">
+                    {{ article.text }}
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
+                        &nbsp;
+                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
+                        &nbsp;
+                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <span class="pull-right">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{ path('app_site_index') }}" id="back" data-toggle="tooltip" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="panel panel-default panel-article">
+                <div class="panel-body">
+                    <p class="text-center"><b>No article!</b></p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

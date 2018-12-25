@@ -23,23 +23,48 @@ p {
     background-color: #696969;
 }
 
-.panel > .panel-footer {
-    text-align: right;
-}
-
 .panel-article {
     margin-right: 20px;
 }
 
-a {
+.panel-heading > h3 > a:hover {
+    text-decoration: none;
+}
+
+.panel-body > a {
     color: black;
 }
 
-a:hover {
+.panel-body > ul > li > a {
+    color: black;
+}
+
+.panel-body > a:hover {
+    color: black;
+}
+
+.panel-footer > .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.panel-footer > a {
+    color: black;
+}
+
+.panel-footer > span > a {
+    color: black;
+}
+
+.panel-footer > .row > span > a {
     color: black;
 }
 
 .breadcrumb {
     margin-right: 20px;
     border: 1px solid #696969;
+}
+
+.breadcrumb > li > a {
+    color: black;
 }

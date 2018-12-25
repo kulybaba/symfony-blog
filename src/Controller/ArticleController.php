@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Like;
 use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -66,7 +67,7 @@ class ArticleController extends AbstractController
     {
         $em = $this->getDoctrine()->getRepository(Article::class);
         $query = $em->createQueryBuilder('a')
-            ->select('a.id', 'a.title', 'a.short_text AS shortText')
+            ->select('a')
             ->where('Month(a.created) = :month', 'Year(a.created) = :year')
             ->orderBy('a.created', 'DESC');
         $query->setParameter('month', $month);
@@ -77,6 +78,20 @@ class ArticleController extends AbstractController
             'articles' => $articles,
             'year' => $year,
             'month' => $month
+        ]);
+    }
+
+    /**
+     * @Route("/article/{id<\d+>}")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function viewAction($id)
+    {
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+        return $this->render('article/view.html.twig', [
+            'article' => $article,
         ]);
     }
 }

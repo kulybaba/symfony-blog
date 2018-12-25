@@ -3,8 +3,8 @@
 {% block title %}Symfony Blog - Tag - {{ tag.text }}{% endblock %}
 
 {% block body %}
-    {{ include('breadcrumb.html.twig', { 'crumb': 'Tag', 'active': tag.text }) }}
     <div class="row">
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Tag', 'active': tag.text }) }}
         {{ include('articles.html.twig', { 'articles': articles }) }}
     </div>
 {% endblock %}

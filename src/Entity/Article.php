@@ -57,7 +57,7 @@ class Article
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="article")
      */
     private $likes;
 

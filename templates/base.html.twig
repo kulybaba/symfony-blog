@@ -95,9 +95,7 @@
                                     <h3 class="panel-title text-center"><span class="glyphicon glyphicon-duplicate"></span>&nbsp;&nbsp;Last articles</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <ul class="nav nav-sidebar">
-                                        {{ render(controller('App\\Controller\\ArticleController::lastAction')) }}
-                                    </ul>
+                                    {{ render(controller('App\\Controller\\ArticleController::lastAction')) }}
                                 </div>
                             </div>
                         </div>
