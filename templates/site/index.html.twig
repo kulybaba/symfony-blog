@@ -5,6 +5,6 @@
 {% block body %}
     <div class="row">
         {{ include('alert.html.twig', {'type': 'success'}) }}
-        {{ include('articles.html.twig', { 'articles': articles }) }}
+        {{ include('articles.html.twig') }}
     </div>
 {% endblock %}

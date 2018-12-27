@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Symfony Blog - Article - {{ article.title }}{% endblock %}
+{% block title %}Symfony Blog - Article - {{ article.id }}{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -28,7 +28,7 @@
                 </div>
                 <hr>
                 <div class="panel-body">
-                    {{ include('tag/list.html.twig', {'tags': tags}) }}
+                    {{ include('tag/list.html.twig') }}
                 </div>
                 <div class="panel-footer">
                     <div class="row">
@@ -38,8 +38,6 @@
                         <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
-                        &nbsp;
-                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-pencil"></span></a>
                         <span class="pull-right">
                             <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -57,5 +55,8 @@
                 </div>
             </div>
         {% endif %}
+    </div>
+    <div class="row">
+        {{ include('comment/list.html.twig') }}
     </div>
 {% endblock %}

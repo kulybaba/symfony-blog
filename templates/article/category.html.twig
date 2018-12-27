@@ -5,6 +5,6 @@
 {% block body %}
     <div class="row">
         {{ include('breadcrumb.html.twig', { 'crumb': 'Category', 'active': category.name }) }}
-        {{ include('articles.html.twig', { 'articles': articles }) }}
+        {{ include('articles.html.twig') }}
     </div>
 {% endblock %}

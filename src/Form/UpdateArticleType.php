@@ -46,7 +46,7 @@ class UpdateArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            'attr' => ['novalidate' => 'novalidate']
+            //'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }

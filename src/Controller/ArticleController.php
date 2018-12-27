@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Tag;
 use App\Form\CreateArticleType;
+use App\Form\CreateCommentType;
 use App\Form\UpdateArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,17 +87,42 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/view/{id<\d+>}")
+     * @param Request $request
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
-    public function viewAction($id)
+    public function viewAction(Request $request, $id)
     {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $tags = $article->getTag();
 
+        $comment = new Comment();
+        $comment->setAuthor($this->getUser())->getId();
+        $comment->setArticle($article);
+        $comment->setCreated(new \DateTime());
+        $comment->setUpdated(new \DateTime());
+
+        $form = $this->createForm(CreateCommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            $this->addFlash('notice', 'Comment created!');
+
+            return $this->redirectToRoute('app_article_view', [
+                'id' => $article->getId()
+            ]);
+        }
+
         return $this->render('article/view.html.twig', [
             'article' => $article,
-            'tags' => $tags
+            'tags' => $tags,
+            'form' => $form->createView()
         ]);
     }
 

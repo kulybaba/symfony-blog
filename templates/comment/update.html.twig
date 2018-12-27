@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog - Update comment - {{ comment.id }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Update comment', 'active': comment.id }) }}
+        <div class="panel panel-default panel-article">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <a href="{{ path('app_article_view', {'id': comment.article.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Update</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -85,3 +85,11 @@ hr {
 .breadcrumb > li > a {
     color: black;
 }
+
+.row-comment {
+    margin-bottom: 15px;
+}
+
+.row-comment:last-child {
+    margin-bottom: 0px;
+}
