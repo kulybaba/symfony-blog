@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Entity\Category;
-use App\Entity\Like;
 use App\Entity\Tag;
+use App\Form\CreateArticleType;
+use App\Form\UpdateArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -82,7 +84,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/article/{id<\d+>}")
+     * @Route("/article/view/{id<\d+>}")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -94,6 +96,91 @@ class ArticleController extends AbstractController
         return $this->render('article/view.html.twig', [
             'article' => $article,
             'tags' => $tags
+        ]);
+    }
+
+    /**
+     * @Route("article/create")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function createAction(Request $request)
+    {
+        $article = new Article();
+        $article->setAuthor($this->getUser())->getId();
+        $article->setCreated(new \DateTime());
+        $article->setUpdated(new \DateTime());
+
+
+        $form = $this->createForm(CreateArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('notice', 'Article created!');
+
+            return $this->redirectToRoute('app_site_index');
+        }
+
+        return $this->render('article/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/article/delete/{id<\d+>}")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($article);
+        $em->flush();
+
+        $this->addFlash('notice', 'Article deleted!');
+
+        return $this->redirectToRoute('app_site_index');
+    }
+
+    /**
+     * @Route("/article/update/{id<\d+>}")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function updateAction(Request $request, $id)
+    {
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+        $article->setUpdated(new \DateTime());
+
+        $form = $this->createForm(UpdateArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('notice', 'Article updated!');
+
+            return $this->redirectToRoute('app_article_view', [
+                'id' => $article->getId()
+            ]);
+        }
+
+        return $this->render('article/update.html.twig', [
+            'form' => $form->createView(),
+            'article' => $article
         ]);
     }
 }

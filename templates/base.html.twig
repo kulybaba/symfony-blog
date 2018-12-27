@@ -35,7 +35,7 @@
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li><a href="#" id="create_article" class="" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
+                                <li><a href="{{ path('app_article_create') }}" id="create_article" data-toggle="tooltip" title="Write an article"><span class="glyphicon glyphicon-pencil"></span></a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18">&nbsp;&nbsp;{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
@@ -157,8 +157,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Close</button>
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Write</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Close</button>
+                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Write</button>
                     </div>
                 </div>
             </div>

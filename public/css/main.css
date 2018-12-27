@@ -28,7 +28,15 @@ hr {
     background-color: #696969;
 }
 
+.panel > .panel-heading > .row > .col-md-1 > span > a {
+    color: #dcdcdc;
+}
+
 .panel-article {
+    margin-right: 20px;
+}
+
+.alert {
     margin-right: 20px;
 }
 
@@ -46,6 +54,10 @@ hr {
 
 .panel-body > a:hover {
     color: black;
+}
+
+.p_category {
+    margin-top: 10px;
 }
 
 .panel-footer > .row {
