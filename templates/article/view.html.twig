@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog - Article - {{ article.id }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('alert.html.twig', {'type': 'success'}) }}
+        {{ include('breadcrumb.html.twig', { 'crumb': 'View', 'active': article.id }) }}
+        {% if article and article|length > 0 %}
+            <div class="panel panel-default panel-article">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;{{ article.title }}</h3>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="pull-right">
+                                <a href="{{ path('app_article_delete', {'id': article.id}) }}" id="delete" data-toggle="tooltip" title="Delete article"><span class="glyphicon glyphicon-remove"></span></a>
+                                <br>
+                                <a href="{{ path('app_article_update', {'id': article.id}) }}" id="update" data-toggle="tooltip" title="Update article"><span class="glyphicon glyphicon-refresh"></span></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>{{ article.text }}</p>
+                    <p class="p_category">Category: <a href="{{ path('app_article_category', {'id': article.category.id}) }}">{{ article.category.name }}</a></p>
+                </div>
+                <hr>
+                <div class="panel-body">
+                    {{ include('tag/list.html.twig') }}
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span id="likes-count">{{ article.likes.count }}</span>
+                        &nbsp;&nbsp;
+                        <a href="#" class="btn btn-default btn-xs {% if like %}display-none{% else %}{% endif %}" id="button-like" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                        <a href="#" class="btn btn-default btn-xs {% if like %}{% else %}display-none{% endif %}" id="button-unlike" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                        <span class="pull-right">
+                            <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{{ path('app_site_index') }}" id="back" data-toggle="tooltip" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="panel panel-default panel-article">
+                <div class="panel-body">
+                    <p class="text-center"><b>No article!</b></p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        {{ include('comment/list.html.twig') }}
+    </div>
+{% endblock %}

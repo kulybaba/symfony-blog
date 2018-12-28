@@ -93,7 +93,7 @@ class User implements UserInterface
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="author")
      */
     private $likes;
 
@@ -298,14 +298,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Like[]
+     * @return Collection|Likes[]
      */
     public function getLikes(): Collection
     {
         return $this->likes;
     }
 
-    public function addLike(Like $like): self
+    public function addLike(Likes $like): self
     {
         if (!$this->likes->contains($like)) {
             $this->likes[] = $like;
@@ -315,7 +315,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeLike(Like $like): self
+    public function removeLike(Likes $like): self
     {
         if ($this->likes->contains($like)) {
             $this->likes->removeElement($like);

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation\Timestampable;
 
 /**
@@ -20,27 +21,41 @@ class Article
     private $id;
 
     /**
+     * @Assert\NotBlank()
+     * @var string
      * @ORM\Column(type="text")
      */
     private $text;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="255",
+     *     min="2",
+     *     maxMessage="Title must contain maximum 255 characters.",
+     *     minMessage="Title must contain minimum 2 characters."
+     * )
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\NotBlank()
+     * @var string
      * @ORM\Column(type="text")
      */
     private $short_text;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -52,12 +67,12 @@ class Article
     private $tag;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Like", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="article", cascade={"persist", "remove"})
      */
     private $likes;
 
@@ -205,14 +220,14 @@ class Article
     }
 
     /**
-     * @return Collection|Like[]
+     * @return Collection|Likes[]
      */
     public function getLikes(): Collection
     {
         return $this->likes;
     }
 
-    public function addLike(Like $like): self
+    public function addLike(Likes $like): self
     {
         if (!$this->likes->contains($like)) {
             $this->likes[] = $like;
@@ -222,7 +237,7 @@ class Article
         return $this;
     }
 
-    public function removeLike(Like $like): self
+    public function removeLike(Likes $like): self
     {
         if ($this->likes->contains($like)) {
             $this->likes->removeElement($like);

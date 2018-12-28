@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="row">
-        {{ include('articles.html.twig', { 'articles': articles }) }}
+        {{ include('alert.html.twig', {'type': 'success'}) }}
+        {{ include('articles.html.twig') }}
     </div>
 {% endblock %}

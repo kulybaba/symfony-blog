@@ -3,8 +3,8 @@
 {% block title %}Symfony Blog - Archive - {{ month }}, {{ year }}{% endblock %}
 
 {% block body %}
-    {{ include('breadcrumb.html.twig', { 'crumb': 'Archive', 'active': month ~ ', ' ~ year  }) }}
     <div class="row">
-        {{ include('articles.html.twig', { 'articles': articles }) }}
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Archive', 'active': month ~ ', ' ~ year  }) }}
+        {{ include('articles.html.twig') }}
     </div>
 {% endblock %}
