@@ -93,3 +93,7 @@ hr {
 .row-comment:last-child {
     margin-bottom: 0px;
 }
+
+.display-none {
+    display: none;
+}

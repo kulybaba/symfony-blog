@@ -32,12 +32,10 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
-                        &nbsp;
-                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                        <a href="#" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-thumbs-down"></span></a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
+                        <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;<span id="likes-count">{{ article.likes.count }}</span>
+                        &nbsp;&nbsp;
+                        <a href="#" class="btn btn-default btn-xs {% if like %}display-none{% else %}{% endif %}" id="button-like" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                        <a href="#" class="btn btn-default btn-xs {% if like %}{% else %}display-none{% endif %}" id="button-unlike" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-down"></span></a>
                         <span class="pull-right">
                             <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
                             &nbsp;&nbsp;&nbsp;&nbsp;

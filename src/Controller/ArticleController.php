@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Likes;
 use App\Entity\Tag;
 use App\Form\CreateArticleType;
 use App\Form\CreateCommentType;
@@ -97,8 +98,14 @@ class ArticleController extends AbstractController
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $tags = $article->getTag();
 
+        $like = null;
+
+        if ($this->getUser()) {
+            $like = $this->getDoctrine()->getRepository(Likes::class)->findOneBy(['article' => $article->getId(), 'author' => $this->getUser()->getId()]);
+        }
+
         $comment = new Comment();
-        $comment->setAuthor($this->getUser())->getId();
+        $comment->setAuthor($this->getUser());
         $comment->setArticle($article);
         $comment->setCreated(new \DateTime());
         $comment->setUpdated(new \DateTime());
@@ -122,6 +129,7 @@ class ArticleController extends AbstractController
         return $this->render('article/view.html.twig', [
             'article' => $article,
             'tags' => $tags,
+            'like' => $like,
             'form' => $form->createView()
         ]);
     }
@@ -135,7 +143,7 @@ class ArticleController extends AbstractController
     public function createAction(Request $request)
     {
         $article = new Article();
-        $article->setAuthor($this->getUser())->getId();
+        $article->setAuthor($this->getUser());
         $article->setCreated(new \DateTime());
         $article->setUpdated(new \DateTime());
 
@@ -209,5 +217,50 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'article' => $article
         ]);
+    }
+
+    /**
+     * @Route("/article/like")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function likeAction()
+    {
+        $article = $this->getDoctrine()->getRepository(Article::class)->find(Request::createFromGlobals()->request->get('id'));
+        $author = $this->getUser();
+
+        if (!$this->getDoctrine()->getRepository(Likes::class)->findOneBy(['article' => $article->getId(), 'author' => $author->getId()])) {
+            $like = new Likes();
+            $like->setArticle($article);
+            $like->setAuthor($author);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($like);
+            $em->flush();
+
+            return $this->json([
+                'success' => true,
+                'likesCount' => $article->getLikes()->count()
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/article/unlike")
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function unlikeAction()
+    {
+        $id = Request::createFromGlobals()->request->get('id');
+
+        if ($like = $this->getDoctrine()->getRepository(Likes::class)->findOneBy(['author' => $this->getUser()->getId(), 'article' => $id])) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($like);
+            $em->flush();
+
+            return $this->json([
+                'success' => true,
+                'likesCount' => $this->getDoctrine()->getRepository(Article::class)->find($id)->getLikes()->count()
+            ]);
+        }
     }
 }
