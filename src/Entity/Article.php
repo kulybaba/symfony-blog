@@ -67,12 +67,12 @@ class Article
     private $tag;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="article", cascade={"persist", "remove"})
      */
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="article")
+     * @ORM\OneToMany(targetEntity="App\Entity\Likes", mappedBy="article", cascade={"persist", "remove"})
      */
     private $likes;
 
