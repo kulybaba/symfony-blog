@@ -4,6 +4,10 @@ $(document).ready(function() {
     $('#back').tooltip({ placement: "bottom" });
     $('#delete').tooltip({ placement: "right" });
     $('#update').tooltip({ placement: "right" });
+    $('#edit').tooltip({ placement: "right" });
+    $('#my_articles').tooltip({ placement: "bottom" });
+    $('#my_likes').tooltip({ placement: "bottom" });
+    $('#my_comments').tooltip({ placement: "bottom" });
 
     $('a#button-like').click(function () {
         var button = $(this);

@@ -16,8 +16,8 @@
                     <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;{{ article.tag.count }}
                     <span class="pull-right">
                         <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{ path('app_profile_view', {'id': article.author.id}) }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}</a>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="{{ path('app_article_view', {'id': article.id}) }}" class="read_more" data-toggle="tooltip" title="Read more"><span class="glyphicon glyphicon-option-horizontal"></span></a>
                     </span>

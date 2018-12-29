@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\RegistrationType;
@@ -9,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class UserController extends AbstractController
@@ -45,6 +45,10 @@ class UserController extends AbstractController
     public function registrationAction(Request $request)
     {
         $user = new User();
+        $profile = new Profile();
+        $profile->setPicture('/images/profile/default_picture.png');
+        $user->setProfile($profile);
+
         $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);

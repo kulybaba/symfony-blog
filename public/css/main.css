@@ -94,6 +94,18 @@ hr {
     margin-bottom: 0px;
 }
 
+.row-profile {
+    margin-top: 15px;
+}
+
+.row-profile > div > a {
+    color: black;
+}
+
+.row-profile > div > a:hover {
+    text-decoration: none;
+}
+
 .display-none {
     display: none;
 }

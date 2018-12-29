@@ -147,7 +147,6 @@ class ArticleController extends AbstractController
         $article->setCreated(new \DateTime());
         $article->setUpdated(new \DateTime());
 
-
         $form = $this->createForm(CreateArticleType::class, $article);
 
         $form->handleRequest($request);
