@@ -27,13 +27,13 @@
                         </div>
                         <div class="row row-profile">
                             <div class="col-md-4">
-                                <a href="#" id="my_articles" data-toggle="tooltip" title="Written articles"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;{{ author.articles.count }}</a>
+                                <a href="{{ path('app_profile_articles', {'id': author.id}) }}" id="my_articles" data-toggle="tooltip" title="Written articles"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;{{ author.articles.count }}</a>
                             </div>
                             <div class="col-md-4">
-                                <a href="#" id="my_likes" data-toggle="tooltip" title="Liked articles"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ author.likes.count }}</a>
+                                <a href="{{ path('app_profile_likes', {'id': author.id}) }}" id="my_likes" data-toggle="tooltip" title="Liked articles"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ author.likes.count }}</a>
                             </div>
                             <div class="col-md-4">
-                                <a href="#" id="my_comments" data-toggle="tooltip" title="Commented articles"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ author.comments.count }}</a>
+                                <a href="{{ path('app_profile_comments', {'id': author.id}) }}" id="my_comments" data-toggle="tooltip" title="Commented articles"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ author.comments.count }}</a>
                             </div>
                         </div>
                     </div>

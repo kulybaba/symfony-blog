@@ -56,4 +56,46 @@ class ProfileController extends AbstractController
             'author' => $author
         ]);
     }
+
+    /**
+     * @Route("/profile/{id<\d+>}/articles")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function articlesAction($id)
+    {
+        $author = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        return $this->render('profile/articles.html.twig', [
+            'author' => $author
+        ]);
+    }
+
+    /**
+     * @Route("/profile/{id<\d+>}/likes")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function likesAction($id)
+    {
+        $author = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        return $this->render('profile/likes.html.twig', [
+            'author' => $author
+        ]);
+    }
+
+    /**
+     * @Route("/profile/{id<\d+>}/comments")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function commentsAction($id)
+    {
+        $author = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        return $this->render('profile/comments.html.twig', [
+            'author' => $author
+        ]);
+    }
 }
