@@ -24,7 +24,18 @@ class Profile
     private $about;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please, select the photo.")
+     * @Assert\Image(
+     *     mimeTypes={"image/png", "image/jpg", "image/jpeg"},
+     *     mimeTypesMessage = "Please upload a valid PNG, JPG or JPEG",
+     *     maxSize="3000k",
+     *     maxSizeMessage="Max size of the photo 3000 k",
+     *     minHeight="300",
+     *     minHeightMessage="Min height 300 px",
+     *     minWidth="300",
+     *     minWidthMessage="Min width 300 px"
+     * )
+     * @ORM\Column(type="string")
      */
     private $picture;
 
