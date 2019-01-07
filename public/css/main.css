@@ -56,6 +56,22 @@ hr {
     color: black;
 }
 
+.panel-body > p > b > a {
+    color: black;
+}
+
+.panel-body > p > b > a:hover {
+    text-decoration: none;
+}
+
+.panel-body > p > span > a {
+    color: black;
+}
+
+.panel-default > hr:last-child {
+    visibility: hidden;
+}
+
 .p_category {
     margin-top: 10px;
 }
@@ -92,6 +108,18 @@ hr {
 
 .row-comment:last-child {
     margin-bottom: 0px;
+}
+
+.row-profile {
+    margin-top: 15px;
+}
+
+.row-profile > div > a {
+    color: black;
+}
+
+.row-profile > div > a:hover {
+    text-decoration: none;
 }
 
 .display-none {

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProfileRepository")
@@ -17,12 +18,24 @@ class Profile
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(max="255", maxMessage="About must contain maximum 255 characters.")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $about;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Please, select the photo.")
+     * @Assert\Image(
+     *     mimeTypes={"image/png", "image/jpg", "image/jpeg"},
+     *     mimeTypesMessage = "Please upload a valid PNG, JPG or JPEG",
+     *     maxSize="3000k",
+     *     maxSizeMessage="Max size of the photo 3000 k",
+     *     minHeight="300",
+     *     minHeightMessage="Min height 300 px",
+     *     minWidth="300",
+     *     minWidthMessage="Min width 300 px"
+     * )
+     * @ORM\Column(type="string")
      */
     private $picture;
 

@@ -19,7 +19,7 @@ class CreateArticleType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control form-group'
-                ],
+                ]
             ])
             ->add('shortText', TextareaType::class, [
                 'attr' => [

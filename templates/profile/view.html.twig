@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Blog - {{ author.firstName }} {{ author.lastName }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('alert.html.twig', {'type': 'success'}) }}
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
+        <div class="panel panel-default panel-article">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11 col-xs-11">
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ author.firstName }} {{ author.lastName }}</h3>
+                    </div>
+                    <div class="col-md-1 col-xs-1">
+                        <span class="pull-right">
+                            <a href="{{ path('app_profile_update', {'id': author.id}) }}" id="edit" data-toggle="tooltip" title="Edit profile"><span class="glyphicon glyphicon-edit"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 col-xs-6 text-center">
+                        <div class="row">
+                            <img src="{{ author.profile.picture }}" class="img-thumbnail" width="300">
+                        </div>
+                        <div class="row row-profile">
+                            <div class="col-md-4 col-xs-4">
+                                <a href="{{ path('app_profile_articles', {'id': author.id}) }}" id="my_articles" data-toggle="tooltip" title="Written articles"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;{{ author.articles.count }}</a>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                                <a href="{{ path('app_profile_likes', {'id': author.id}) }}" id="my_likes" data-toggle="tooltip" title="Liked articles"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ author.likes.count }}</a>
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                                <a href="{{ path('app_profile_comments', {'id': author.id}) }}" id="my_comments" data-toggle="tooltip" title="Commented articles"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ author.comments.count }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                        <div class="row">
+                            <p><b>First name:</b> {{ author.firstName }}</p>
+                        </div>
+                        <div class="row">
+                            <p><b>Last name:</b> {{ author.lastName }}</p>
+                        </div>
+                        <div class="row">
+                            <p><b>E-mail:</b> {{ author.email }}</p>
+                        </div>
+                        <div class="row">
+                            <p><b>Roles:</b> {% for role in author.roles %}{{ role }}<br>{% endfor %}</p>
+                        </div>
+                        <div class="row">
+                            <p><b>About:</b> {% if author.profile.about %}{{ author.profile.about }}{% else %}(Empty){% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-xs-4 text-left">
+                        <a href="{{ path('app_profile_changepicture', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture    "></span>&nbsp;&nbsp;Change photo</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-center">
+                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-certificate"></span>&nbsp;&nbsp;Change password</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-right">
+                        <a href="{{ path('app_logout') }}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

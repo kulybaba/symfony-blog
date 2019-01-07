@@ -39,9 +39,10 @@
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="18">&nbsp;&nbsp;{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My profile</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;My articles</a></li>
-                                        <li><a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Liked articles</a></li>
+                                        <li><a href="{{ path('app_profile_view', {'id': app.user.id}) }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;My profile</a></li>
+                                        <li><a href="{{ path('app_profile_articles', {'id': app.user.id}) }}"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;My articles</a></li>
+                                        <li><a href="{{ path('app_profile_likes', {'id': app.user.id}) }}"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Liked articles</a></li>
+                                        <li><a href="{{ path('app_profile_comments', {'id': app.user.id}) }}"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Commented articles</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a></li>
                                     </ul>

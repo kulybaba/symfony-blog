@@ -10,10 +10,10 @@
             <div class="panel panel-default panel-article">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-md-11">
+                        <div class="col-md-11 col-xs-11">
                             <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;{{ article.title }}</h3>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-1 col-xs-1">
                             <span class="pull-right">
                                 <a href="{{ path('app_article_delete', {'id': article.id}) }}" id="delete" data-toggle="tooltip" title="Delete article"><span class="glyphicon glyphicon-remove"></span></a>
                                 <br>
@@ -39,7 +39,7 @@
                         <span class="pull-right">
                             <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}
+                            <a href="{{ path('app_profile_view', {'id': article.author.id}) }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{ article.author.firstName }} {{ article.author.lastName }}</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <a href="{{ path('app_site_index') }}" id="back" data-toggle="tooltip" title="Back"><span class="glyphicon glyphicon-arrow-left"></span></a>
                         </span>
