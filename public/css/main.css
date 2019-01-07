@@ -125,3 +125,12 @@ hr {
 .display-none {
     display: none;
 }
+
+input[type=checkbox]:first-child {
+    margin-left: 0px;
+}
+
+input[type=checkbox] {
+    margin-left: 15px;
+    margin-right: 3px;
+}
