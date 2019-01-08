@@ -23,6 +23,10 @@
                     </div>
                 </div>
                 <div class="panel-body">
+                    {% if article.picture %}
+                        <p class="text-center"><img src="{{ article.picture }}" class="img-rounded" width="725"></p>
+                        <br>
+                    {% endif %}
                     <p>{{ article.text }}</p>
                     <p class="p_category">Category: <a href="{{ path('app_article_category', {'id': article.category.id}) }}">{{ article.category.name }}</a></p>
                 </div>

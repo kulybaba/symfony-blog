@@ -152,6 +152,13 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($_FILES['create_article']['tmp_name']['picture']) {
+                $picture = $this->file($_FILES['create_article']['tmp_name']['picture'])->getFile();
+                $pictureName = md5(uniqid()) . '.' . $picture->guessExtension();
+                $picture->move('uploads/article/', $pictureName);
+                $article->setPicture('/uploads/article/' . $pictureName);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -174,6 +181,12 @@ class ArticleController extends AbstractController
     public function deleteAction($id)
     {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+        if ($article->getPicture()) {
+            //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
+            $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
+            unlink($picture);
+        }
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
@@ -261,5 +274,31 @@ class ArticleController extends AbstractController
                 'likesCount' => $this->getDoctrine()->getRepository(Article::class)->find($id)->getLikes()->count()
             ]);
         }
+    }
+
+    /**
+     * @Route("/article/update/{id<\d+>}/delete-picture")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deletePictureAction($id)
+    {
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+        //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
+        $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
+        unlink($picture);
+
+        $article->setPicture(null);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
+
+        $this->addFlash('notice', 'Picture deleted!');
+
+        return $this->redirectToRoute('app_article_view', [
+            'id' => $article->getId()
+        ]);
     }
 }
