@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -47,6 +48,11 @@ class CreateArticleType extends AbstractType
                 'choice_label' => 'text',
                 'multiple' => true,
                 'expanded' => true
+            ])
+            ->add('picture', FileType::class, [
+                'attr' => [
+                    'class' => 'form-control form-group'
+                ],
             ]);
     }
 
