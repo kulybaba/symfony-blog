@@ -116,10 +116,14 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($profile->getPicture() != '/images/profile/default_picture.png') {
+                //$oldPicture = $this->file(substr($profile->getPicture(), 1))->getFile();
+                $oldPicture = $this->file(ltrim($profile->getPicture(), '/'))->getFile();
+                unlink($oldPicture);
+            }
 
             $picture = $this->file($_FILES['change_picture']['tmp_name']['picture'])->getFile();
             $pictureName = md5(uniqid()) . '.' . $picture->guessExtension();
-
             $picture->move('uploads/profile/', $pictureName);
 
             $profile->setPicture('/uploads/profile/' . $pictureName);
@@ -151,17 +155,19 @@ class ProfileController extends AbstractController
         $author = $this->getDoctrine()->getRepository(User::class)->find($id);
         $profile = $author->getProfile();
 
-        //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
-        $picture = $this->file(ltrim($profile->getPicture(), '/'))->getFile();
-        unlink($picture);
+        if ($profile->getPicture() != '/images/profile/default_picture.png') {
+            //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
+            $picture = $this->file(ltrim($profile->getPicture(), '/'))->getFile();
+            unlink($picture);
 
-        $profile->setPicture('/images/profile/default_picture.png');
+            $profile->setPicture('/images/profile/default_picture.png');
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($profile);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($profile);
+            $em->flush();
 
-        $this->addFlash('notice', 'Picture deleted!');
+            $this->addFlash('notice', 'Picture deleted!');
+        }
 
         return $this->redirectToRoute('app_profile_view', [
             'id' => $author->getId()
