@@ -48,7 +48,7 @@
                             <p><b>E-mail:</b> {{ author.email }}</p>
                         </div>
                         <div class="row">
-                            <p><b>Roles:</b> {% for role in author.roles %}{{ role }}<br>{% endfor %}</p>
+                            <p><b>Roles:</b> {{ author.roles|first }}</p>
                         </div>
                         <div class="row">
                             <p><b>About:</b> {% if author.profile.about %}{{ author.profile.about }}{% else %}(Empty){% endif %}</p>
