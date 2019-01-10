@@ -9,7 +9,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Liked articles</h3>
             </div>
-            {% if author.likes %}
+            {% if author.likes and author.likes|length > 0 %}
                 {% for like in author.likes %}
                     <div class="panel-body">
                         <p><b><a href="{{ path('app_article_view', {'id': like.article.id}) }}">{{ like.article.title }}</a></b></p>
@@ -31,7 +31,7 @@
                 {% endfor %}
             {% else %}
                 <div class="panel-body">
-                    <p class="text-center">(No articles)</p>
+                    <p class="text-center">(No liked articles)</p>
                 </div>
             {% endif %}
             <div class="panel-body">

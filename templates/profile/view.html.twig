@@ -14,7 +14,9 @@
                     </div>
                     <div class="col-md-1 col-xs-1">
                         <span class="pull-right">
-                            <a href="{{ path('app_profile_update', {'id': author.id}) }}" id="edit" data-toggle="tooltip" title="Edit profile"><span class="glyphicon glyphicon-edit"></span></a>
+                            {% if author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                                <a href="{{ path('app_profile_update', {'id': author.id}) }}" id="edit" data-toggle="tooltip" title="Edit profile"><span class="glyphicon glyphicon-edit"></span></a>
+                            {% endif %}
                         </span>
                     </div>
                 </div>
@@ -25,17 +27,25 @@
                         <div class="row">
                             <img src="{{ author.profile.picture }}" class="img-thumbnail" width="300">
                         </div>
-                        <div class="row row-profile">
-                            <div class="col-md-4 col-xs-4">
-                                <a href="{{ path('app_profile_articles', {'id': author.id}) }}" id="my_articles" data-toggle="tooltip" title="Written articles"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;{{ author.articles.count }}</a>
+                        {% if author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                            <div class="row row-profile">
+                                    <div class="col-md-4 col-xs-4">
+                                        {% if is_granted('ROLE_BLOGGER') or is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path('app_profile_articles', {'id': author.id}) }}" id="my_articles" data-toggle="tooltip" title="Written articles"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;{{ author.articles.count }}</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        {% if author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path('app_profile_likes', {'id': author.id}) }}" id="my_likes" data-toggle="tooltip" title="Liked articles"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ author.likes.count }}</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-4 col-xs-4">
+                                        {% if is_granted('ROLE_BLOGGER') or is_granted('ROLE_ADMIN') %}
+                                            <a href="{{ path('app_profile_comments', {'id': author.id}) }}" id="my_comments" data-toggle="tooltip" title="Commented articles"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ author.comments.count }}</a>
+                                        {% endif %}
+                                    </div>
                             </div>
-                            <div class="col-md-4 col-xs-4">
-                                <a href="{{ path('app_profile_likes', {'id': author.id}) }}" id="my_likes" data-toggle="tooltip" title="Liked articles"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ author.likes.count }}</a>
-                            </div>
-                            <div class="col-md-4 col-xs-4">
-                                <a href="{{ path('app_profile_comments', {'id': author.id}) }}" id="my_comments" data-toggle="tooltip" title="Commented articles"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ author.comments.count }}</a>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                     <div class="col-md-6 col-xs-6">
                         <div class="row">
@@ -55,18 +65,20 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-4 col-xs-4 text-left">
-                        <a href="{{ path('app_profile_changepicture', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture    "></span>&nbsp;&nbsp;Change photo</a>
+                {% if author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4 col-xs-4 text-left">
+                            <a href="{{ path('app_profile_changepicture', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture    "></span>&nbsp;&nbsp;Change photo</a>
+                        </div>
+                        <div class="col-md-4 col-xs-4 text-center">
+                            <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-certificate"></span>&nbsp;&nbsp;Change password</a>
+                        </div>
+                        <div class="col-md-4 col-xs-4 text-right">
+                            <a href="{{ path('app_logout') }}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-xs-4 text-center">
-                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-certificate"></span>&nbsp;&nbsp;Change password</a>
-                    </div>
-                    <div class="col-md-4 col-xs-4 text-right">
-                        <a href="{{ path('app_logout') }}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a>
-                    </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

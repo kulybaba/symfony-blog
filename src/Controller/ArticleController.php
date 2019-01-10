@@ -10,6 +10,7 @@ use App\Entity\Tag;
 use App\Form\CreateArticleType;
 use App\Form\CreateCommentType;
 use App\Form\UpdateArticleType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -136,12 +137,15 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("article/create")
+     * @IsGranted("ROLE_BLOGGER")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
     public function createAction(Request $request)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $article = new Article();
         $article->setAuthor($this->getUser());
         $article->setCreated(new \DateTime());
@@ -175,30 +179,39 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/delete/{id<\d+>}")
+     * @IsGranted("ROLE_BLOGGER")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
     public function deleteAction($id)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        if ($article->getPicture()) {
-            //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
-            $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
-            unlink($picture);
+        if ($this->getUser() == $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            if ($article->getPicture()) {
+                //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
+                $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
+                unlink($picture);
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($article);
+            $em->flush();
+
+            $this->addFlash('notice', 'Article deleted!');
+
+            return $this->redirectToRoute('app_site_index');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($article);
-        $em->flush();
-
-        $this->addFlash('notice', 'Article deleted!');
-
-        return $this->redirectToRoute('app_site_index');
+        throw new \Exception('Access denied');
     }
 
     /**
      * @Route("/article/update/{id<\d+>}")
+     * @IsGranted("ROLE_BLOGGER")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -206,29 +219,35 @@ class ArticleController extends AbstractController
      */
     public function updateAction(Request $request, $id)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $article->setUpdated(new \DateTime());
 
-        $form = $this->createForm(UpdateArticleType::class, $article);
+        if ($this->getUser() == $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(UpdateArticleType::class, $article);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
 
-            $this->addFlash('notice', 'Article updated!');
+                $this->addFlash('notice', 'Article updated!');
 
-            return $this->redirectToRoute('app_article_view', [
-                'id' => $article->getId()
+                return $this->redirectToRoute('app_article_view', [
+                    'id' => $article->getId()
+                ]);
+            }
+
+            return $this->render('article/update.html.twig', [
+                'form' => $form->createView(),
+                'article' => $article
             ]);
         }
 
-        return $this->render('article/update.html.twig', [
-            'form' => $form->createView(),
-            'article' => $article
-        ]);
+        throw new \Exception('Access denied');
     }
 
     /**
@@ -237,6 +256,8 @@ class ArticleController extends AbstractController
      */
     public function likeAction()
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $article = $this->getDoctrine()->getRepository(Article::class)->find(Request::createFromGlobals()->request->get('id'));
         $author = $this->getUser();
 
@@ -262,6 +283,8 @@ class ArticleController extends AbstractController
      */
     public function unlikeAction()
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $id = Request::createFromGlobals()->request->get('id');
 
         if ($like = $this->getDoctrine()->getRepository(Likes::class)->findOneBy(['author' => $this->getUser()->getId(), 'article' => $id])) {
@@ -277,28 +300,36 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_BLOGGER")
      * @Route("/article/update/{id<\d+>}/delete-picture")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Exception
      */
     public function deletePictureAction($id)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
-        $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
-        unlink($picture);
+        if ($this->getUser() == $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            //$picture = $this->file(substr($profile->getPicture(), 1))->getFile();
+            $picture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
+            unlink($picture);
 
-        $article->setPicture(null);
+            $article->setPicture(null);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($article);
-        $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
 
-        $this->addFlash('notice', 'Picture deleted!');
+            $this->addFlash('notice', 'Picture deleted!');
 
-        return $this->redirectToRoute('app_article_view', [
-            'id' => $article->getId()
-        ]);
+            return $this->redirectToRoute('app_article_view', [
+                'id' => $article->getId()
+            ]);
+        }
+
+        throw new \Exception('Access denied');
     }
 }
