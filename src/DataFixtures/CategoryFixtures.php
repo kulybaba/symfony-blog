@@ -11,7 +11,7 @@ class CategoryFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $category = new Category();
-        $category->setName('News');
+        $category->setName('Nature');
         $manager->persist($category);
         $manager->flush();
     }
