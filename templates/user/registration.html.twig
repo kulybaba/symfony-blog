@@ -3,15 +3,20 @@
 {% block title %}Registration{% endblock %}
 
 {% block body %}
+    <div class="row">
+        {{ include('breadcrumb.html.twig', { 'crumb': 'Author', 'active': 'Registration' }) }}
+        <div class="panel panel-default panel-article">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <a href="{{ path('app_site_index') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Registration</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 
-    {{ form_start(form) }}
 
-        <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
 
-        {{ form_widget(form) }}
-
-        <button class="btn btn-lg btn-primary" type="submit">Registration</button>
-
-    {{ form_end(form) }}
 
 {% endblock %}
