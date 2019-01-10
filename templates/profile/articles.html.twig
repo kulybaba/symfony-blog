@@ -9,7 +9,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;My articles</h3>
             </div>
-            {% if author.articles %}
+            {% if author.articles and author.articles|length > 0 %}
                 {% for article in author.articles %}
                     <div class="panel-body">
                         <p><b><a href="{{ path('app_article_view', {'id': article.id}) }}">{{ article.title }}</a></b></p>

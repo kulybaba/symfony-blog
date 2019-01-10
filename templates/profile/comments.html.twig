@@ -9,7 +9,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Commented articles</h3>
             </div>
-            {% if author.comments %}
+            {% if author.comments and author.comments|length > 0 %}
                 {% for comment in author.comments %}
                     <div class="panel-body">
                         <p><b><a href="{{ path('app_article_view', {'id': comment.article.id}) }}">{{ comment.article.title }}</a></b></p>
@@ -33,7 +33,7 @@
                 {% endfor %}
             {% else %}
                 <div class="panel-body">
-                    <p class="text-center">(No articles)</p>
+                    <p class="text-center">(No commented articles)</p>
                 </div>
             {% endif %}
             <div class="panel-body">

@@ -104,7 +104,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->roles = ['ROLE_USER'];
+        $this->roles = ['ROLE_READER'];
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
@@ -143,8 +143,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_READER
+        //$roles[] = 'ROLE_READER';
 
         return array_unique($roles);
     }

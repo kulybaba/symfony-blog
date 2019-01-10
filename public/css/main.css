@@ -110,6 +110,10 @@ hr {
     margin-bottom: 0px;
 }
 
+.row-comment > div > .row > p > b > a {
+    color: black;
+}
+
 .row-profile {
     margin-top: 15px;
 }

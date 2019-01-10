@@ -21,19 +21,25 @@ class UserController extends AbstractController
      */
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
-        // get the login error if there is one
-        $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        if (!$this->getUser()) {
+            // get the login error if there is one
+            $error = $authenticationUtils->getLastAuthenticationError();
+            // last username entered by the user
+            $lastUsername = $authenticationUtils->getLastUsername();
 
-        $user = new User();
-        $user->setEmail($lastUsername);
+            $user = new User();
+            $user->setEmail($lastUsername);
 
-        $form = $this->createForm(LoginType::class, $user);
+            $form = $this->createForm(LoginType::class, $user);
 
-        return $this->render('user/login.html.twig', [
-            'error' => $error,
-            'form' => $form->createView()
+            return $this->render('user/login.html.twig', [
+                'error' => $error,
+                'form' => $form->createView()
+            ]);
+        }
+
+        return $this->redirectToRoute('app_profile_view', [
+            'id' => $this->getUser()->getId()
         ]);
     }
 
@@ -44,25 +50,31 @@ class UserController extends AbstractController
      */
     public function registrationAction(Request $request)
     {
-        $user = new User();
-        $profile = new Profile();
-        $profile->setPicture('/images/profile/default_picture.png');
-        $user->setProfile($profile);
+        if (!$this->getUser()) {
+            $user = new User();
+            $profile = new Profile();
+            $profile->setPicture('/images/profile/default_picture.png');
+            $user->setProfile($profile);
 
-        $form = $this->createForm(RegistrationType::class, $user);
+            $form = $this->createForm(RegistrationType::class, $user);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
 
-            return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_login');
+            }
+
+            return $this->render('user/registration.html.twig', [
+                'form' => $form->createView()
+            ]);
         }
 
-        return $this->render('user/registration.html.twig', [
-            'form' => $form->createView()
+        return $this->redirectToRoute('app_profile_view', [
+            'id' => $this->getUser()->getId()
         ]);
     }
 }

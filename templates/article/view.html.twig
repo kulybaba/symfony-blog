@@ -15,9 +15,11 @@
                         </div>
                         <div class="col-md-1 col-xs-1">
                             <span class="pull-right">
-                                <a href="{{ path('app_article_delete', {'id': article.id}) }}" id="delete" data-toggle="tooltip" title="Delete article"><span class="glyphicon glyphicon-remove"></span></a>
-                                <br>
-                                <a href="{{ path('app_article_update', {'id': article.id}) }}" id="update" data-toggle="tooltip" title="Update article"><span class="glyphicon glyphicon-refresh"></span></a>
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') and article.author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_article_delete', {'id': article.id}) }}" id="delete" data-toggle="tooltip" title="Delete article"><span class="glyphicon glyphicon-remove"></span></a>
+                                    <br>
+                                    <a href="{{ path('app_article_update', {'id': article.id}) }}" id="update" data-toggle="tooltip" title="Update article"><span class="glyphicon glyphicon-refresh"></span></a>
+                                {% endif %}
                             </span>
                         </div>
                     </div>
