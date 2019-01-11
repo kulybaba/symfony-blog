@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}ADMIN{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('app_admin_dashboard_index') }}">ADMIN</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Authors</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Articles</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Likes</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Comments</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ path('app_site_index') }}" id="return_to_blog" data-toggle="tooltip" title="Return to blog"><span class="glyphicon glyphicon-retweet"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="{{ app.user.profile.picture }}" class="img-circle" width="18" height="18">&nbsp;&nbsp;{{ app.user.firstName }} {{ app.user.lastName }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ path('app_logout') }}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+<div class="container">
+    <div class="row">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+{% block javascripts %}
+    <script src="{{ asset('libs/jquery/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('libs/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/common.js') }}"></script>
+{% endblock %}
+</body>
+</html>
