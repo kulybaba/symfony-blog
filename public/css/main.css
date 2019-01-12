@@ -138,3 +138,29 @@ input[type=checkbox] {
     margin-left: 15px;
     margin-right: 3px;
 }
+
+.thumbnail-row {
+    margin-top: 80px;
+}
+
+.thumbnail-admin {
+    color: #696969;
+}
+
+.thumbnail-admin:hover {
+    text-decoration: none;
+    color: #696969;
+}
+
+.well {
+    margin: 0px;
+    padding: 30px
+}
+
+.list-group-item.active {
+    background-color: #696969;
+}
+
+.list-group-item.active:hover {
+    background-color: #696969;
+}

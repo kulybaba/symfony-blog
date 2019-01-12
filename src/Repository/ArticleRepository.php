@@ -14,9 +14,31 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
+    private const LAST_ARTICLES_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Article::class);
+    }
+
+    public function getCountArticles()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastArticles()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->setMaxResults(self::LAST_ARTICLES_LIMIT)
+            ->orderBy('a.created', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
