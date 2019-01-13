@@ -139,6 +139,10 @@ input[type=checkbox] {
     margin-right: 3px;
 }
 
+.row-admin {
+    margin-top: 80px;
+}
+
 .thumbnail-row {
     margin-top: 80px;
 }
@@ -163,4 +167,36 @@ input[type=checkbox] {
 
 .list-group-item.active:hover {
     background-color: #696969;
+}
+
+.breadcrumb-admin {
+    margin-right: 0px;
+}
+
+table a {
+    color: #696969;
+}
+
+table a:hover {
+    color: #696969;
+}
+
+.pagination > li > a {
+    color: #696969;
+}
+
+.pagination > li > a:hover {
+    color: #696969;
+}
+
+.pagination > .active > span {
+    background-color: #696969;
+}
+
+.pagination > .active > span:hover {
+    background-color: #696969;
+}
+
+.alert-admin {
+    margin-right: 0px;
 }
