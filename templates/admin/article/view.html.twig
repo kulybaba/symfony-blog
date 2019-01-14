@@ -9,7 +9,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 text-center">
+                    <div class="col-md-offset-4 col-md-4 col-xs-offset-2 col-xs-8 text-center">
                         {% if article.picture %}
                             <div class="row text-center">
                                 <img src="{{ article.picture }}" class="img-thumbnail" width="300">
@@ -23,6 +23,8 @@
                             <br>
                             <p><b>Text:</b> {{ article.text }}</p>
                             <br>
+                            <p><b>Author:</b> {{ article.author.firstName }} {{ article.author.lastName }}</p>
+                            <br>
                             <p><b>Category:</b> {{ article.category.name }}</p>
                             <br>
                             <p>
@@ -35,17 +37,25 @@
                                     (No tags)
                                 {% endif %}
                             </p>
+                            <br>
+                            <p><b>Created:</b> {{ article.created|date }}</p>
+                            <br>
+                            <p><b>Updated:</b> {{ article.updated|date }}</p>
+                            <br>
                         </div>
                     </div>
                 </div>
-                <div class="row row-profile">
-                    <div class="col-md-4 col-xs-4 text-left">
+                <div class="row row-actions">
+                    <div class="col-md-3 col-xs-3 text-left">
                         <a href="{{ path('app_admin_article_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
                     </div>
-                    <div class="col-md-4 col-xs-4 text-center">
+                    <div class="col-md-3 col-xs-3 text-left">
                         <a href="{{ path('app_admin_article_changepicture', {'id': article.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Change picture</a>
                     </div>
-                    <div class="col-md-4 col-xs-4 text-right">
+                    <div class="col-md-3 col-xs-3 text-right">
+                        <a href="{{ path('app_admin_article_delete', {'id': article.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete</a>
+                    </div>
+                    <div class="col-md-3 col-xs-3 text-right">
                         <a href="{{ path('app_admin_article_update', {'id': article.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Update</a>
                     </div>
                 </div>

@@ -200,3 +200,7 @@ table a:hover {
 .alert-admin {
     margin-right: 0px;
 }
+
+.row-actions {
+    margin-top: 15px;
+}

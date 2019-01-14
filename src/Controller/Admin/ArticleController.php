@@ -97,7 +97,9 @@ class ArticleController extends AbstractController
 
             $this->addFlash('notice', 'Article updated!');
 
-            return $this->redirectToRoute('app_admin_article_list');
+            return $this->redirectToRoute('app_admin_article_view', [
+                'id' => $article->getId()
+            ]);
         }
 
         return $this->render('admin/article/update.html.twig', [
