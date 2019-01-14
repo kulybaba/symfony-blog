@@ -25,9 +25,9 @@
                 {% for comment in pagination %}
                     <tr>
                         <td class="text-center">{{ comment.id }}</td>
-                        <td class="text-center">{{ comment.text }}</td>
-                        <td class="text-center">{{ comment.author.firstName }} {{ comment.author.lastName }}</td>
-                        <td class="text-center">{{ comment.article.title }}</td>
+                        <td>{{ comment.text }}</td>
+                        <td>{{ comment.author.firstName }} {{ comment.author.lastName }}</td>
+                        <td>{{ comment.article.title }}</td>
                         <td class="text-center">{{ comment.created|date }}</td>
                         <td class="text-center">{{ comment.updated|date }}</td>
                         <td class="text-center">

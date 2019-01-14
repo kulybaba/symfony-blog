@@ -22,8 +22,8 @@
                 {% for like in pagination %}
                     <tr>
                         <td class="text-center">{{ like.id }}</td>
-                        <td class="text-center">{{ like.article.title }}</td>
-                        <td class="text-center">{{ like.author.firstName }} {{ like.author.lastName }}</td>
+                        <td>{{ like.article.title }}</td>
+                        <td>{{ like.author.firstName }} {{ like.author.lastName }}</td>
                         <td class="text-center">
                             <a href="{{ path('app_admin_likes_view', {'id': like.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
                             <br>
