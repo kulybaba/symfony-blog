@@ -1,15 +1,15 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}ADMIN - Author create{% endblock %}
+{% block title %}ADMIN - Like create{% endblock %}
 
 {% block body %}
     <div class="row row-admin">
-        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Authors', 'active': 'Create' }) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Likes', 'active': 'Create' }) }}
         <div class="panel panel-default">
             <div class="panel-body">
                 {{ form_start(form) }}
                 {{ form_widget(form) }}
-                <a href="{{ path('app_admin_author_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                <a href="{{ path('app_admin_likes_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
                 <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Create</button>
                 {{ form_end(form) }}
             </div>

@@ -145,7 +145,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("admin/articles/{id<\d+>}/change-picture")
+     * @Route("/admin/articles/{id<\d+>}/change-picture")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -189,7 +189,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("admin/articles/{id<\d+>}/delete-picture")
+     * @Route("/admin/articles/{id<\d+>}/delete-picture")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */

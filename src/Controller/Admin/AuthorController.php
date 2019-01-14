@@ -99,7 +99,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("admin/authors/{id<\d+>}/delete")
+     * @Route("/admin/authors/{id<\d+>}/delete")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -123,7 +123,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("admin/authors/{id<\d+>}/change-photo")
+     * @Route("/admin/authors/{id<\d+>}/change-photo")
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -168,7 +168,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("admin/authors/{id<\d+>}/delete-photo")
+     * @Route("/admin/authors/{id<\d+>}/delete-photo")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @throws \Exception
@@ -199,7 +199,7 @@ class AuthorController extends AbstractController
     }
 
     /**
-     * @Route("admin/authors/{id<\d+>}/view")
+     * @Route("/admin/authors/{id<\d+>}/view")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */

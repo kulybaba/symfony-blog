@@ -1,11 +1,11 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}ADMIN - Article list{% endblock %}
+{% block title %}ADMIN - Articles list{% endblock %}
 
 {% block body %}
     <div class="row row-admin">
         {{ include('admin/alert.html.twig', {'type': 'success'}) }}
-        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Article', 'active': 'List' }) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Articles', 'active': 'List' }) }}
 
         <a href="{{ path('app_admin_article_create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create article</a>
         <br>

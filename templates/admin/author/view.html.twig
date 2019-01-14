@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}ADMIN - Authors view{% endblock %}
+{% block title %}ADMIN - Author view{% endblock %}
 
 {% block body %}
     <div class="row row-admin">
@@ -13,19 +13,16 @@
                         <div class="row text-center">
                             <img src="{{ author.profile.picture }}" class="img-thumbnail" width="300">
                         </div>
+                        <br>
                         <div class="row">
                             <p><b>First name:</b> {{ author.firstName }}</p>
-                        </div>
-                        <div class="row">
+                            <br>
                             <p><b>Last name:</b> {{ author.lastName }}</p>
-                        </div>
-                        <div class="row">
+                            <br>
                             <p><b>E-mail:</b> {{ author.email }}</p>
-                        </div>
-                        <div class="row">
+                            <br>
                             <p><b>Roles:</b> {{ author.roles|first }}</p>
-                        </div>
-                        <div class="row">
+                            <br>
                             <p><b>About:</b> {% if author.profile.about %}{{ author.profile.about }}{% else %}(Empty){% endif %}</p>
                         </div>
                     </div>
