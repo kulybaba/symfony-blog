@@ -1,0 +1,55 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Article view{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Article', 'active': 'View' }) }}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-4 col-xs-offset-4 col-xs-4 text-center">
+                        {% if article.picture %}
+                            <div class="row text-center">
+                                <img src="{{ article.picture }}" class="img-thumbnail" width="300">
+                            </div>
+                            <br>
+                        {% endif %}
+                        <div class="row text-left">
+                            <p><b>Title:</b> {{ article.title }}</p>
+                            <br>
+                            <p><b>Short text:</b> {{ article.shortText }}</p>
+                            <br>
+                            <p><b>Text:</b> {{ article.text }}</p>
+                            <br>
+                            <p><b>Category:</b> {{ article.category.name }}</p>
+                            <br>
+                            <p>
+                                <b>Tags:</b>
+                                {% if article.tag %}
+                                    {% for tag in article.tag %}
+                                        {{ tag.text }}&nbsp;
+                                    {% endfor %}
+                                {% else %}
+                                    (No tags)
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-profile">
+                    <div class="col-md-4 col-xs-4 text-left">
+                        <a href="{{ path('app_admin_article_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-center">
+                        <a href="{{ path('app_admin_article_changepicture', {'id': article.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture"></span>&nbsp;&nbsp;Change picture</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-right">
+                        <a href="{{ path('app_admin_article_update', {'id': article.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Update</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -32,9 +32,9 @@
                         <td>{{ author.roles|first }}</td>
                         <td class="text-center">
                             <a href="{{ path('app_admin_author_view', {'id': author.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
-                            &nbsp;
+                            <br>
                             <a href="{{ path('app_admin_author_update', {'id': author.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                            &nbsp;
+                            <br>
                             <a href="{{ path('app_admin_author_delete', {'id': author.id}) }}"><span class="glyphicon glyphicon-remove"></span></a>
                         </td>
                     </tr>

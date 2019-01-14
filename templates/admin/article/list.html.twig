@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Article list{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Article', 'active': 'List' }) }}
+
+        <a href="{{ path('app_admin_article_create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create article</a>
+        <br>
+        <br>
+
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th class="text-center">{{ knp_pagination_sortable(pagination, 'ID', 'a.id') }}</th>
+                <th class="text-center">Picture</th>
+                <th class="text-center" {% if pagination.isSorted('a.title') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+                <th class="text-center" {% if pagination.isSorted('a.created') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created', 'a.created') }}</th>
+                <th class="text-center" {% if pagination.isSorted('a.updated') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated', 'a.updated') }}</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% if pagination and pagination|length > 0 %}
+                {% for article in pagination %}
+                    <tr>
+                        <td class="text-center">{{ article.id }}</td>
+                        <td class="text-center">
+                            {% if article.picture %}
+                                <img src="{{ article.picture }}" width="80" height="80">
+                            {% else %}
+                                (No picture)
+                            {% endif %}
+                        </td>
+                        <td>{{ article.title }}</td>
+                        <td class="text-center">{{ article.created|date }}</td>
+                        <td class="text-center">{{ article.updated|date }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_admin_article_view', {'id': article.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_article_update', {'id': article.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_article_delete', {'id': article.id}) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="8" class="text-center">(No articles)</td>
+                </tr>
+            {% endif %}
+        </table>
+        <div class="navigation pull-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
