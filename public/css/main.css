@@ -204,3 +204,7 @@ table a:hover {
 .row-actions {
     margin-top: 15px;
 }
+
+.request-sent {
+    color: green;
+}
