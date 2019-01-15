@@ -24,12 +24,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('app_admin_dashboard_index') }}"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;Dashboard</a></li>
-                    <li><a href="{{ path('app_admin_author_list') }}"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Authors</a></li>
-                    <li><a href="{{ path('app_admin_article_list') }}"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Articles</a></li>
-                    <li><a href="{{ path('app_admin_likes_list') }}"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Likes</a></li>
-                    <li><a href="{{ path('app_admin_comment_list') }}"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Comments</a></li>
-                    <li><a href="{{ path('app_admin_category_list') }}"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</a></li>
-                    <li><a href="{{ path('app_admin_tag_list') }}"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-bullhorn"></span>&nbsp;&nbsp;Requests <span class="badge">5</span></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ path('app_site_index') }}" id="return_to_blog" data-toggle="tooltip" title="Return to blog"><span class="glyphicon glyphicon-retweet"></span></a></li>
@@ -49,7 +44,19 @@
 
 <div class="container">
     <div class="row">
-        {% block body %}{% endblock %}
+        <div class="col-md-2 thumbnail-row">
+            <div class="list-group">
+                <a href="{{ path('app_admin_author_list') }}" class="list-group-item"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Authors</a>
+                <a href="{{ path('app_admin_article_list') }}" class="list-group-item"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;Articles</a>
+                <a href="{{ path('app_admin_likes_list') }}" class="list-group-item"><span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;Likes</a>
+                <a href="{{ path('app_admin_comment_list') }}" class="list-group-item"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Comments</a>
+                <a href="{{ path('app_admin_category_list') }}" class="list-group-item"><span class="glyphicon glyphicon-tasks"></span>&nbsp;&nbsp;Categories</a>
+                <a href="{{ path('app_admin_tag_list') }}" class="list-group-item"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;Tags</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            {% block body %}{% endblock %}
+        </div>
     </div>
 </div>
 
