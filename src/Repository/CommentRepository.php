@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+    private const LAST_COMMENTS_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Comment::class);
@@ -25,6 +27,17 @@ class CommentRepository extends ServiceEntityRepository
             ->select('COUNT(c.id)')
             ->getQuery()
             ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastComments()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->setMaxResults(self::LAST_COMMENTS_LIMIT)
+            ->orderBy('c.created', 'DESC')
+            ->getQuery()
+            ->getResult()
             ;
     }
 

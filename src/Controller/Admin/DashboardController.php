@@ -26,7 +26,10 @@ class DashboardController extends AbstractController
         $countCategories = $this->getDoctrine()->getRepository(Category::class)->getCountCategories();
         $countTags = $this->getDoctrine()->getRepository(Tag::class)->getCountTags();
 
+        $lastAuthors = $this->getDoctrine()->getRepository(User::class)->findLastAuthors();
         $lastArticles = $this->getDoctrine()->getRepository(Article::class)->findLastArticles();
+        $lastLikes = $this->getDoctrine()->getRepository(Likes::class)->findLastLikes();
+        $lastComments = $this->getDoctrine()->getRepository(Comment::class)->findLastComments();
         $lastCategories = $this->getDoctrine()->getRepository(Category::class)->findLastCategories();
         $lastTags = $this->getDoctrine()->getRepository(Tag::class)->findLastTags();
 
@@ -38,7 +41,10 @@ class DashboardController extends AbstractController
             'countCategories' => $countCategories,
             'countTags' => $countTags,
 
+            'lastAuthors' => $lastAuthors,
             'lastArticles' => $lastArticles,
+            'lastLikes' => $lastLikes,
+            'lastComments' => $lastComments,
             'lastCategories' => $lastCategories,
             'lastTags' => $lastTags
         ]);

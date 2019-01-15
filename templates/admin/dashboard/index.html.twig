@@ -81,14 +81,28 @@
         <div class="col-md-4">
             <div class="list-group">
                 <div class="list-group-item active text-center">
-                    <b>Last articles</b>
+                    <b>Last authors</b>
                 </div>
-                {% if lastArticles %}
-                    {% for article in lastArticles %}
-                        <a href="#" class="list-group-item">{{ article.title }}</a>
+                {% if lastAuthors %}
+                    {% for author in lastAuthors %}
+                        <a href="{{ path('app_admin_author_view', {'id': author.id}) }}" class="list-group-item">{{ author.firstName }} {{ author.lastName }} <span class="badge">{{ author.articles.count }}</span></a>
                     {% endfor %}
                 {% else %}
-                    <div class="list-group-item text-center">(No articles)</div>
+                    <div class="list-group-item text-center">(No authors)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last likes</b>
+                </div>
+                {% if lastLikes %}
+                    {% for like in lastLikes %}
+                        <a href="{{ path('app_admin_likes_view', {'id': like.id}) }}" class="list-group-item"><b>{{ like.author.firstName }} {{ like.author.firstName }}</b> liked <b>{{ like.article.title }}</b></a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No likes)</div>
                 {% endif %}
             </div>
         </div>
@@ -99,10 +113,40 @@
                 </div>
                 {% if lastCategories %}
                     {% for category in lastCategories %}
-                        <a href="#" class="list-group-item">{{ category.name }} <span class="badge">{{ category.articles.count }}</span></a>
+                        <a href="{{ path('app_admin_category_view', {'id': category.id}) }}" class="list-group-item">{{ category.name }} <span class="badge">{{ category.articles.count }}</span></a>
                     {% endfor %}
                 {% else %}
                     <div class="list-group-item text-center">(No categories)</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last articles</b>
+                </div>
+                {% if lastArticles %}
+                    {% for article in lastArticles %}
+                        <a href="{{ path('app_admin_article_view', {'id': article.id}) }}" class="list-group-item">{{ article.title }}</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No articles)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last comments</b>
+                </div>
+                {% if lastComments %}
+                    {% for comment in lastComments %}
+                        <a href="{{ path('app_admin_comment_view', {'id': comment.id}) }}" class="list-group-item">{{ comment.text }}</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No comments)</div>
                 {% endif %}
             </div>
         </div>
@@ -113,7 +157,7 @@
                 </div>
                 {% if lastCategories %}
                     {% for tag in lastTags %}
-                        <a href="#" class="list-group-item">{{ tag.text }} <span class="badge">{{ tag.articles.count }}</span></a>
+                        <a href="{{ path('app_admin_tag_view', {'id': tag.id}) }}" class="list-group-item">{{ tag.text }} <span class="badge">{{ tag.articles.count }}</span></a>
                     {% endfor %}
                 {% else %}
                     <div class="list-group-item text-center">(No tags)</div>

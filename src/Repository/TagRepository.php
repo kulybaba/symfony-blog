@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class TagRepository extends ServiceEntityRepository
 {
-    private const LAST_TAGS_LIMIT = 10;
+    private const LAST_TAGS_LIMIT = 5;
 
     public function __construct(RegistryInterface $registry)
     {

@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class UserRepository extends ServiceEntityRepository
 {
+    private const LAST_AUTHORS_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, User::class);
@@ -25,6 +27,17 @@ class UserRepository extends ServiceEntityRepository
             ->select('COUNT(a.id)')
             ->getQuery()
             ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastAuthors()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->setMaxResults(self::LAST_AUTHORS_LIMIT)
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult()
             ;
     }
 

@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
-    private const LAST_CATEGORIES_LIMIT = 10;
+    private const LAST_CATEGORIES_LIMIT = 5;
 
     public function __construct(RegistryInterface $registry)
     {
