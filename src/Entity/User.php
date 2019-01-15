@@ -102,6 +102,11 @@ class User implements UserInterface
      */
     private $likes;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Requests", mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $requests;
+
     public function __construct()
     {
         $this->roles = ['ROLE_READER'];
@@ -328,6 +333,24 @@ class User implements UserInterface
             if ($like->getAuthor() === $this) {
                 $like->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getRequests(): ?Requests
+    {
+        return $this->requests;
+    }
+
+    public function setRequests(?Requests $requests): self
+    {
+        $this->requests = $requests;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newAuthor = $requests === null ? null : $this;
+        if ($newAuthor !== $requests->getAuthor()) {
+            $requests->setAuthor($newAuthor);
         }
 
         return $this;

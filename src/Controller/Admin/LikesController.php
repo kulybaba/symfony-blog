@@ -121,7 +121,7 @@ class LikesController extends AbstractController
         $em->remove($like);
         $em->flush();
 
-        $this->addFlash('notice', 'Like deleted!');
+        $this->addFlash('notice', 'Request deleted!');
 
         return $this->redirectToRoute('app_admin_likes_list');
     }

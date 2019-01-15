@@ -10,6 +10,7 @@ $(document).ready(function() {
     $('#my_comments').tooltip({ placement: "bottom" });
     $('#admin_panel').tooltip({ placement: "bottom" });
     $('#return_to_blog').tooltip({ placement: "bottom" });
+    $('#request_on_blogger').tooltip({ placement: "right" });
 
     $('a#button-like').click(function () {
         var button = $(this);

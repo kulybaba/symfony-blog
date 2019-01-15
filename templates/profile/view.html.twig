@@ -58,7 +58,17 @@
                             <p><b>E-mail:</b> {{ author.email }}</p>
                         </div>
                         <div class="row">
-                            <p><b>Roles:</b> {{ author.roles|first }}</p>
+                            <p><b>Roles:</b> {{ author.roles|first }}
+                                {% if author.id == app.user.id and is_granted('ROLE_READER') or is_granted('ROLE_ADMIN') %}
+                                    {% if not author.requests %}
+                                        <a href="{{ path('app_requests_send', {'id': author.id}) }}" class="btn btn-default btn-xs" id="request_on_blogger" data-toggle="tooltip" title="Send request on blogger">
+                                            <span class="glyphicon glyphicon-bullhorn"></span>
+                                        </a>
+                                    {% else %}
+                                        <span class="request-sent">(Request on blogger sent)</span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
                         </div>
                         <div class="row">
                             <p><b>About:</b> {% if author.profile.about %}{{ author.profile.about }}{% else %}(Empty){% endif %}</p>
