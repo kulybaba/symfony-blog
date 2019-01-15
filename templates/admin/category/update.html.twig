@@ -1,0 +1,24 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Category update{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Categories', 'active': 'Update' }) }}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="row">
+                    <div class="col-md-6 col-xs-6 text-left">
+                        <a href="{{ path('app_admin_category_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                    </div>
+                    <div class="col-md-6 col-xs-6 text-right">
+                        <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Update</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

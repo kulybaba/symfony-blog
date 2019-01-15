@@ -14,9 +14,31 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class LikesRepository extends ServiceEntityRepository
 {
+    private const LAST_LIKES_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Likes::class);
+    }
+
+    public function getCountLikes()
+    {
+        return $this->createQueryBuilder('l')
+            ->select('COUNT(l.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastLikes()
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l')
+            ->setMaxResults(self::LAST_LIKES_LIMIT)
+            ->orderBy('l.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

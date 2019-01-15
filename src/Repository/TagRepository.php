@@ -14,9 +14,31 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class TagRepository extends ServiceEntityRepository
 {
+    private const LAST_TAGS_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Tag::class);
+    }
+
+    public function getCountTags()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastTags()
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->setMaxResults(self::LAST_TAGS_LIMIT)
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**

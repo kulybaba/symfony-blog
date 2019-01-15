@@ -1,26 +1,37 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Admin;
 
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
+use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UpdateArticleType extends AbstractType
+class CreateArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, [
+            ->add('author', EntityType::class, [
                 'attr' => [
                     'class' => 'form-control form-group'
                 ],
+                'class' => User::class,
+                'choice_label' => function ($author) {
+                    return $author->getFirstName() . ' ' . $author->getLastName();
+                }
+            ])
+            ->add('title', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control form-group'
+                ]
             ])
             ->add('shortText', TextareaType::class, [
                 'attr' => [
@@ -48,14 +59,10 @@ class UpdateArticleType extends AbstractType
                 'multiple' => true,
                 'expanded' => true
             ])
-            ->add('picture', TextType::class, [
-                'disabled' => true,
+            ->add('picture', FileType::class, [
                 'attr' => [
-                    'class' => 'hidden'
+                    'class' => 'form-control form-group'
                 ],
-                'label_attr' => [
-                    'class' => 'hidden'
-                ]
             ]);
     }
 
@@ -63,7 +70,7 @@ class UpdateArticleType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Article::class,
-            //'attr' => ['novalidate' => 'novalidate']
+            'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }

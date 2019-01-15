@@ -14,9 +14,31 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class CategoryRepository extends ServiceEntityRepository
 {
+    private const LAST_CATEGORIES_LIMIT = 5;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Category::class);
+    }
+
+    public function getCountCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function findLastCategories()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->setMaxResults(self::LAST_CATEGORIES_LIMIT)
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
