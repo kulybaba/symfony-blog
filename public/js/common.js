@@ -11,6 +11,7 @@ $(document).ready(function() {
     $('#admin_panel').tooltip({ placement: "bottom" });
     $('#return_to_blog').tooltip({ placement: "bottom" });
     $('#request_on_blogger').tooltip({ placement: "right" });
+    $('#button-complain').tooltip({ placement: "bottom" });
 
     $('a#button-like').click(function () {
         var button = $(this);

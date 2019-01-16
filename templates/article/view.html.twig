@@ -42,6 +42,13 @@
                         &nbsp;&nbsp;
                         <a href="#" class="btn btn-default btn-xs {% if like %}display-none{% else %}{% endif %}" id="button-like" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-up"></span></a>
                         <a href="#" class="btn btn-default btn-xs {% if like %}{% else %}display-none{% endif %}" id="button-unlike" data-id="{{ article.id }}"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            {% if complaint %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="request-sent">(Complaint sent)</span>
+                            {% else %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('app_complaint_send', {'id': article.id}) }}" id="button-complain" data-toggle="tooltip" title="Complain on article"><span class="glyphicon glyphicon-bullhorn"></span></a>
+                            {% endif %}
+                        {% endif %}
                         <span class="pull-right">
                             <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
                             &nbsp;&nbsp;&nbsp;&nbsp;

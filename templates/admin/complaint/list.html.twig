@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Complaints list{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Complaints on articles', 'active': 'List' }) }}
+
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th class="text-center">{{ knp_pagination_sortable(pagination, 'ID', 'r.id') }}</th>
+                <th class="text-center">Article</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% if pagination and pagination|length > 0 %}
+                {% set filter = [] %}
+                {% set count = 0 %}
+                {% for complaint in pagination %}
+                    {% set count = count + 1 %}
+                    {% if complaint.article.id not in filter %}
+                        <tr>
+                            <td class="text-center">{{ complaint.id }}</td>
+                            <td>{{ complaint.article.title }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('app_admin_article_view', {'id': complaint.article.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                                <br>
+                                <a href="{{ path('app_admin_complaint_approve', {'id': complaint.id}) }}"><span class="glyphicon glyphicon-ok"></span></a>
+                                <br>
+                                <a href="{{ path('app_admin_complaint_refuse', {'id': complaint.id}) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                            </td>
+                        </tr>
+                        {% set filter = filter|merge([complaint.article.id]) %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center">(No complaints)</td>
+                </tr>
+            {% endif %}
+        </table>
+        <div class="navigation pull-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}

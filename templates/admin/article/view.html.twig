@@ -29,7 +29,7 @@
                             <br>
                             <p>
                                 <b>Tags:</b>
-                                {% if article.tag %}
+                                {% if article.tag and article.tag|length > 0 %}
                                     {% for tag in article.tag %}
                                         {{ tag.text }}&nbsp;
                                     {% endfor %}
@@ -42,6 +42,14 @@
                             <br>
                             <p><b>Updated:</b> {{ article.updated|date }}</p>
                             <br>
+                            <p>
+                                <b>Complaints:</b>
+                                {% if article.complaints and article.complaints|length > 0 %}
+                                    {{ article.complaints.count }}
+                                {% else %}
+                                    (No complaints)
+                                {% endif %}
+                            </p>
                         </div>
                     </div>
                 </div>

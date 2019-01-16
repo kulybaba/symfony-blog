@@ -107,12 +107,18 @@ class User implements UserInterface
      */
     private $requests;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Complaint", mappedBy="author", cascade={"persist", "remove"})
+     */
+    private $complaints;
+
     public function __construct()
     {
         $this->roles = ['ROLE_READER'];
         $this->articles = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->complaints = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -351,6 +357,37 @@ class User implements UserInterface
         $newAuthor = $requests === null ? null : $this;
         if ($newAuthor !== $requests->getAuthor()) {
             $requests->setAuthor($newAuthor);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Complaint[]
+     */
+    public function getComplaints(): Collection
+    {
+        return $this->complaints;
+    }
+
+    public function addComplaint(Complaint $complaint): self
+    {
+        if (!$this->complaints->contains($complaint)) {
+            $this->complaints[] = $complaint;
+            $complaint->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplaint(Complaint $complaint): self
+    {
+        if ($this->complaints->contains($complaint)) {
+            $this->complaints->removeElement($complaint);
+            // set the owning side to null (unless already changed)
+            if ($complaint->getAuthor() === $this) {
+                $complaint->setAuthor(null);
+            }
         }
 
         return $this;

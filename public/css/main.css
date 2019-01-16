@@ -89,6 +89,10 @@ hr {
     color: black;
 }
 
+.panel-footer > .row > a {
+    color: black;
+}
+
 .panel-footer > .row > span > a {
     color: black;
 }
