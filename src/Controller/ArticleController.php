@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Complaint;
 use App\Entity\Likes;
 use App\Entity\Tag;
 use App\Form\CreateArticleType;
@@ -99,6 +100,12 @@ class ArticleController extends AbstractController
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $tags = $article->getTag();
 
+        $complaint = null;
+
+        if ($this->getUser()) {
+            $complaint = $this->getDoctrine()->getRepository(Complaint::class)->findOneBy(['article' => $article->getId(), 'author' => $this->getUser()->getId()]);
+        }
+
         $like = null;
 
         if ($this->getUser()) {
@@ -131,7 +138,8 @@ class ArticleController extends AbstractController
             'article' => $article,
             'tags' => $tags,
             'like' => $like,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'complaint' => $complaint
         ]);
     }
 

@@ -25,6 +25,13 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('app_admin_dashboard_index') }}"><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;Dashboard</a></li>
                     <li>
+                        <a href="{{ path('app_admin_complaint_list') }}"><span class="glyphicon glyphicon-alert">
+                            </span>&nbsp;&nbsp;Complaints <span class="badge">
+                                {{ render(controller('App\\Controller\\Admin\\ComplaintController::countAction')) }}
+                            </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ path('app_admin_requests_list') }}"><span class="glyphicon glyphicon-bullhorn">
                             </span>&nbsp;&nbsp;Requests <span class="badge">
                                 {{ render(controller('App\\Controller\\Admin\\RequestsController::countAction')) }}

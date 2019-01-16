@@ -105,11 +105,17 @@ class Article
      */
     private $picture;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Complaint", mappedBy="article", cascade={"persist", "remove"})
+     */
+    private $complaints;
+
     public function __construct()
     {
         $this->tag = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->complaints = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -297,6 +303,37 @@ class Article
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Complaint[]
+     */
+    public function getComplaints(): Collection
+    {
+        return $this->complaints;
+    }
+
+    public function addComplaint(Complaint $complaint): self
+    {
+        if (!$this->complaints->contains($complaint)) {
+            $this->complaints[] = $complaint;
+            $complaint->setArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComplaint(Complaint $complaint): self
+    {
+        if ($this->complaints->contains($complaint)) {
+            $this->complaints->removeElement($complaint);
+            // set the owning side to null (unless already changed)
+            if ($complaint->getArticle() === $this) {
+                $complaint->setArticle(null);
+            }
+        }
 
         return $this;
     }
