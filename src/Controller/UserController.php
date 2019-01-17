@@ -22,15 +22,11 @@ class UserController extends AbstractController
     public function loginAction(AuthenticationUtils $authenticationUtils): Response
     {
         if (!$this->getUser()) {
-            // get the login error if there is one
             $error = $authenticationUtils->getLastAuthenticationError();
-            // last username entered by the user
+
             $lastUsername = $authenticationUtils->getLastUsername();
 
-            $user = new User();
-            $user->setEmail($lastUsername);
-
-            $form = $this->createForm(LoginType::class, $user);
+            $form = $this->createForm(LoginType::class, null, ['lastUsername' => $lastUsername]);
 
             return $this->render('user/login.html.twig', [
                 'error' => $error,

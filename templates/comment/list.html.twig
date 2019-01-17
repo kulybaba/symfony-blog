@@ -11,8 +11,8 @@
         </div>
     {% endif %}
     <div class="panel-body">
-        {% if article.comments and article.comments|length > 0 %}
-            {% for comment in article.comments %}
+        {% if pagination and pagination|length > 0 %}
+            {% for comment in pagination %}
                 <div class="row row-comment">
                     <div class="col-md-2 col-xs-2 text-center">
                         <img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="70">
@@ -40,5 +40,10 @@
         {% else %}
             <p class="text-center">(No comments)</p>
         {% endif %}
+        <div class="row text-center">
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
     </div>
 </div>

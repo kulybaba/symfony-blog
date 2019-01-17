@@ -13,10 +13,13 @@ class LoginType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $lastUsername = $options['lastUsername'];
+
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'form-control form-group'
+                    'class' => 'form-control form-group',
+                    'value' => $lastUsername
                 ]
             ])
             ->add('password', PasswordType::class, [
@@ -38,7 +41,8 @@ class LoginType extends AbstractType
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id'   => 'task_item',
-            'attr' => ['novalidate' => 'novalidate']
+            'attr' => ['novalidate' => 'novalidate'],
+            'lastUsername' => null
         ]);
     }
 }
