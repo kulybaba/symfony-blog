@@ -12,6 +12,7 @@ $(document).ready(function() {
     $('#return_to_blog').tooltip({ placement: "bottom" });
     $('#request_on_blogger').tooltip({ placement: "right" });
     $('#button-complain').tooltip({ placement: "bottom" });
+    $('#back-to-top').tooltip({ placement: "right" });
 
     $('a#button-like').click(function () {
         var button = $(this);
@@ -41,5 +42,10 @@ $(document).ready(function() {
             }
         });
         return false;
+    });
+
+    $('a#back-to-top').on('click', function (event) {
+        event.preventDefault();
+        $('html, body').animate({scrollTop: 0}, 500);
     });
 });
