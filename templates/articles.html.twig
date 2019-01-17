@@ -5,7 +5,20 @@
                 <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<a href="{{ path('app_article_view', {'id': article.id}) }}">{{ article.title }}</a></h3>
             </div>
             <div class="panel-body">
-                {{ article.shortText }}
+                {% if article.picture %}
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="{{ path('app_article_view', {'id': article.id}) }}">
+                                <img class="media-object img-rounded" src="{{ article.picture }}" width="100" height="100">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            {{ article.shortText }}
+                        </div>
+                    </div>
+                {% else %}
+                    {{ article.shortText }}
+                {% endif %}
             </div>
             <div class="panel-footer">
                 <div class="row">
