@@ -8,6 +8,7 @@ use App\Entity\Comment;
 use App\Entity\Complaint;
 use App\Entity\Likes;
 use App\Entity\Tag;
+use App\Form\ChangePictureType;
 use App\Form\CreateArticleType;
 use App\Form\CreateCommentType;
 use App\Form\UpdateArticleType;
@@ -335,6 +336,58 @@ class ArticleController extends AbstractController
 
             return $this->redirectToRoute('app_article_view', [
                 'id' => $article->getId()
+            ]);
+        }
+
+        throw new \Exception('Access denied');
+    }
+
+    /**
+     * @Route("/article/update/{id<\d+>}/change-picture")
+     * @IsGranted("ROLE_BLOGGER")
+     * @param Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function changePictureAction(Request $request, $id)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
+
+        if ($this->getUser() == $article->getAuthor() || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(ChangePictureType::class);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                if ($article->getPicture()) {
+                    //$oldPicture = $this->file(substr($profile->getPicture(), 1))->getFile();
+                    $oldPicture = $this->file(ltrim($article->getPicture(), '/'))->getFile();
+                    unlink($oldPicture);
+                }
+
+                $picture = $this->file($_FILES['change_picture']['tmp_name']['picture'])->getFile();
+                $pictureName = md5(uniqid()) . '.' . $picture->guessExtension();
+                $picture->move('uploads/article/', $pictureName);
+
+                $article->setPicture('/uploads/article/' . $pictureName);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                $this->addFlash('notice', 'Picture changed!');
+
+                return $this->redirectToRoute('app_article_view', [
+                    'id' => $article->getId()
+                ]);
+            }
+
+            return $this->render('article/change-picture.html.twig', [
+                'form' => $form->createView(),
+                'article' => $article
             ]);
         }
 
