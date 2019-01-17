@@ -12,6 +12,7 @@ use App\Form\ChangePictureType;
 use App\Form\CreateArticleType;
 use App\Form\CreateCommentType;
 use App\Form\UpdateArticleType;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,18 +20,32 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
+    private const ARTICLES_LIMIT_ON_PAGE = 5;
+    private const COMMENTS_LIMIT_ON_PAGE = 5;
     /**
      * @Route("/category/{id<\d+>}")
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function categoryAction($id)
+    public function categoryAction(Request $request, PaginatorInterface $paginator, $id)
     {
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
-        $articles = $category->getArticles();
+
+        $query = $this->getDoctrine()->getRepository(Article::class)
+            ->createQueryBuilder('a')
+            ->select('a')
+            ->join('a.category', 'c')
+            ->where('c.id = :category_id')
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('category_id', $category->getId())
+            ->getQuery();
 
         return $this->render('article/category.html.twig', [
-            'articles' => $articles,
+            'pagination' => $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                self::ARTICLES_LIMIT_ON_PAGE
+            ),
             'category' => $category
         ]);
     }
@@ -40,25 +55,32 @@ class ArticleController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function tagAction($id)
+    public function tagAction(Request $request, PaginatorInterface $paginator, $id)
     {
         $tag = $this->getDoctrine()->getRepository(Tag::class)->find($id);
-        $articles = $tag->getArticles();
+
+        $query = $this->getDoctrine()->getRepository(Article::class)
+            ->createQueryBuilder('a')
+            ->select('a')
+            ->join('a.tag', 't')
+            ->where('t.id = :tag_id')
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('tag_id', $tag->getId())
+            ->getQuery();
 
         return $this->render('article/tag.html.twig', [
-            'articles' => $articles,
+            'pagination' => $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                self::ARTICLES_LIMIT_ON_PAGE
+            ),
             'tag' => $tag
         ]);
     }
 
-    public function lastAction($limit = 5)
+    public function lastAction()
     {
-        $em = $this->getDoctrine()->getRepository(Article::class);
-        $query = $em->createQueryBuilder('a')
-            ->select('a.id', 'a.title')
-            ->orderBy('a.created', 'DESC');
-        $query->setMaxResults($limit);
-        $articles = $query->getQuery()->getResult();
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findLastArticles();
 
         return $this->render('article/last.html.twig', [
             'articles' => $articles
@@ -71,19 +93,23 @@ class ArticleController extends AbstractController
      * @param $year
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function archiveAction($month, $year)
+    public function archiveAction(Request $request, PaginatorInterface $paginator, $month, $year)
     {
-        $em = $this->getDoctrine()->getRepository(Article::class);
-        $query = $em->createQueryBuilder('a')
+        $query = $this->getDoctrine()->getRepository(Article::class)
+            ->createQueryBuilder('a')
             ->select('a')
             ->where('Month(a.created) = :month', 'Year(a.created) = :year')
-            ->orderBy('a.created', 'DESC');
-        $query->setParameter('month', $month);
-        $query->setParameter('year', $year);
-        $articles = $query->getQuery()->getResult();
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('month', $month)
+            ->setParameter('year', $year)
+            ->getQuery();
 
         return $this->render('article/archive.html.twig', [
-            'articles' => $articles,
+            'pagination' => $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                self::ARTICLES_LIMIT_ON_PAGE
+            ),
             'year' => $year,
             'month' => $month
         ]);
@@ -96,10 +122,18 @@ class ArticleController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function viewAction(Request $request, $id)
+    public function viewAction(Request $request, PaginatorInterface $paginator, $id)
     {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $tags = $article->getTag();
+        $query = $this->getDoctrine()->getRepository(Comment::class)
+            ->createQueryBuilder('c')
+            ->select('c')
+            ->join('c.article', 'a')
+            ->where('a.id = :article_id')
+            ->orderBy('c.created', 'DESC')
+            ->setParameter('article_id', $article->getId())
+            ->getQuery();
 
         $complaint = null;
 
@@ -140,7 +174,12 @@ class ArticleController extends AbstractController
             'tags' => $tags,
             'like' => $like,
             'form' => $form->createView(),
-            'complaint' => $complaint
+            'complaint' => $complaint,
+            'pagination' => $paginator->paginate(
+                $query,
+                $request->query->getInt('page', 1),
+                self::COMMENTS_LIMIT_ON_PAGE
+            ),
         ]);
     }
 

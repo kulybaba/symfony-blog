@@ -1,5 +1,5 @@
-{% if articles and articles|length > 0 %}
-    {% for article in articles %}
+{% if pagination and pagination|length > 0 %}
+    {% for article in pagination %}
         <div class="panel panel-default panel-article">
             <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;<a href="{{ path('app_article_view', {'id': article.id}) }}">{{ article.title }}</a></h3>
@@ -45,3 +45,9 @@
         </div>
     </div>
 {% endif %}
+
+<div class="row text-center">
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
