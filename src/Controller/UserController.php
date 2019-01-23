@@ -6,6 +6,7 @@ use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\LoginType;
 use App\Form\RegistrationType;
+use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,7 +45,7 @@ class UserController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function registrationAction(Request $request)
+    public function registrationAction(Request $request, UserService $userService)
     {
         if (!$this->getUser()) {
             $user = new User();
@@ -60,6 +61,8 @@ class UserController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
+
+                $userService->sendRegistrationEmail($user);
 
                 return $this->redirectToRoute('app_login');
             }
