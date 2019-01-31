@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\ChangePictureType;
 use App\Form\UpdateProfileType;
+use App\Services\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ProfileController extends AbstractController
 {
@@ -172,5 +175,49 @@ class ProfileController extends AbstractController
         return $this->redirectToRoute('app_profile_view', [
             'id' => $author->getId()
         ]);
+    }
+
+    /**
+     * @Route("/profile/{id<\d+>}/change-password")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserService $userService
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
+    public function changePasswordAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, UserService $userService, $id)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $author = $this->getDoctrine()->getRepository(User::class)->find($id);
+
+        if ($this->getUser() == $author || $this->isGranted('ROLE_ADMIN')) {
+            $form = $this->createForm(ChangePasswordType::class, $author);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $author->setPassword($userService->encodePassword($author));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($author);
+                $em->flush();
+
+                $userService->sendPasswordChangeEmail($author);
+
+                $this->addFlash('notice', 'Password changed!');
+
+                return $this->redirectToRoute('app_profile_view', [
+                    'id' => $author->getId()
+                ]);
+            }
+
+            return $this->render('profile/change-password.html.twig', [
+                'form' => $form->createView(),
+                'author' => $author
+            ]);
+        }
+
+        throw new \Exception('Access denied');
     }
 }

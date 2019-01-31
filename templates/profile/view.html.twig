@@ -61,7 +61,7 @@
                         <a href="{{ path('app_profile_changepicture', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-picture    "></span>&nbsp;&nbsp;Change photo</a>
                     </div>
                     <div class="col-md-4 col-xs-4 text-center">
-                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-certificate"></span>&nbsp;&nbsp;Change password</a>
+                        <a href="{{ path('app_profile_changepassword', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-certificate"></span>&nbsp;&nbsp;Change password</a>
                     </div>
                     <div class="col-md-4 col-xs-4 text-right">
                         <a href="{{ path('app_logout') }}" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-out"></span>&nbsp;&nbsp;Logout</a>
