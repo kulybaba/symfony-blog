@@ -21,10 +21,7 @@ class ArticleController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Article::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Article::class)->findAllArticlesQuery();
 
         return $this->render('admin/article/list.html.twig', [
             'pagination' => $paginator->paginate(

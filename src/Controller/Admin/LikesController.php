@@ -19,10 +19,7 @@ class LikesController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Likes::class)
-            ->createQueryBuilder('l')
-            ->select('l')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Likes::class)->findAllLikesQuery();
 
         return $this->render('admin/likes/list.html.twig', [
             'pagination' => $paginator->paginate(

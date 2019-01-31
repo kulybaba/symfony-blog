@@ -28,6 +28,15 @@ class RequestsRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllRequestsQuery()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r')
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ;
+    }
+
     // /**
     //  * @return Requests[] Returns an array of Requests objects
     //  */

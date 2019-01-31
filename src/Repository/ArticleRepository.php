@@ -41,6 +41,62 @@ class ArticleRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findArchiveList()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('Month(a.created) AS month', 'Year(a.created) AS year')
+            ->groupBy('month', 'year')
+            ->orderBy('year', "DESC")
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findArticlesByCategoryQuery($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->join('a.category', 'c')
+            ->where('c.id = :category_id')
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('category_id', $id)
+            ->getQuery()
+            ;
+    }
+
+    public function findArticlesByTagQuery($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->join('a.tag', 't')
+            ->where('t.id = :tag_id')
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('tag_id', $id)
+            ->getQuery()
+            ;
+    }
+
+    public function findArticlesByArchiveQuery($month, $year)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->where('Month(a.created) = :month', 'Year(a.created) = :year')
+            ->orderBy('a.created', 'DESC')
+            ->setParameter('month', $month)
+            ->setParameter('year', $year)
+            ->getQuery()
+            ;
+    }
+
+    public function findAllArticlesQuery()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.created', 'DESC')
+            ->getQuery()
+            ;
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

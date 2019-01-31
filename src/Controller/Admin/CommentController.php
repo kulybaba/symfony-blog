@@ -19,10 +19,7 @@ class CommentController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Comment::class)
-            ->createQueryBuilder('c')
-            ->select('c')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Comment::class)->findAllCommentsQuery();
 
         return $this->render('admin/comment/list.html.twig', [
             'pagination' => $paginator->paginate(

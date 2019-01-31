@@ -41,6 +41,15 @@ class CategoryRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllCategoriesQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ;
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

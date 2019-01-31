@@ -20,10 +20,7 @@ class RequestsController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Requests::class)
-            ->createQueryBuilder('r')
-            ->select('r')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Requests::class)->findAllRequestsQuery();
 
         return $this->render('admin/requests/list.html.twig', [
             'pagination' => $paginator->paginate(

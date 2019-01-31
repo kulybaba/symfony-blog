@@ -19,10 +19,7 @@ class TagController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Tag::class)
-            ->createQueryBuilder('t')
-            ->select('t')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Tag::class)->findAllTagsQuery();
 
         return $this->render('admin/tag/list.html.twig', [
             'pagination' => $paginator->paginate(

@@ -19,10 +19,7 @@ class CategoryController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Category::class)
-            ->createQueryBuilder('c')
-            ->select('c')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Category::class)->findAllCategoriesQuery();
 
         return $this->render('admin/category/list.html.twig', [
             'pagination' => $paginator->paginate(

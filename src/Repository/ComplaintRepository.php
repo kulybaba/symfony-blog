@@ -19,6 +19,26 @@ class ComplaintRepository extends ServiceEntityRepository
         parent::__construct($registry, Complaint::class);
     }
 
+    public function findAllComplaintsQuery()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.id', 'DESC')
+            ->getQuery()
+            ;
+    }
+
+    public function getCountComplaints()
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.article', 'a')
+            ->select('a.id')
+            ->distinct()
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Complaint[] Returns an array of Complaint objects
     //  */
