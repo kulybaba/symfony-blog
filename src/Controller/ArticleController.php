@@ -31,14 +31,7 @@ class ArticleController extends AbstractController
     {
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
 
-        $query = $this->getDoctrine()->getRepository(Article::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->join('a.category', 'c')
-            ->where('c.id = :category_id')
-            ->orderBy('a.created', 'DESC')
-            ->setParameter('category_id', $category->getId())
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByCategoryQuery($category->getId());
 
         return $this->render('article/category.html.twig', [
             'pagination' => $paginator->paginate(
@@ -59,14 +52,7 @@ class ArticleController extends AbstractController
     {
         $tag = $this->getDoctrine()->getRepository(Tag::class)->find($id);
 
-        $query = $this->getDoctrine()->getRepository(Article::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->join('a.tag', 't')
-            ->where('t.id = :tag_id')
-            ->orderBy('a.created', 'DESC')
-            ->setParameter('tag_id', $tag->getId())
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByTagQuery($tag->getId());
 
         return $this->render('article/tag.html.twig', [
             'pagination' => $paginator->paginate(
@@ -95,14 +81,7 @@ class ArticleController extends AbstractController
      */
     public function archiveAction(Request $request, PaginatorInterface $paginator, $month, $year)
     {
-        $query = $this->getDoctrine()->getRepository(Article::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->where('Month(a.created) = :month', 'Year(a.created) = :year')
-            ->orderBy('a.created', 'DESC')
-            ->setParameter('month', $month)
-            ->setParameter('year', $year)
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByArchiveQuery($month, $year);
 
         return $this->render('article/archive.html.twig', [
             'pagination' => $paginator->paginate(
@@ -126,14 +105,7 @@ class ArticleController extends AbstractController
     {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
         $tags = $article->getTag();
-        $query = $this->getDoctrine()->getRepository(Comment::class)
-            ->createQueryBuilder('c')
-            ->select('c')
-            ->join('c.article', 'a')
-            ->where('a.id = :article_id')
-            ->orderBy('c.created', 'DESC')
-            ->setParameter('article_id', $article->getId())
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Comment::class)->findCommentsByArticleQuery($article->getId());
 
         $complaint = null;
 

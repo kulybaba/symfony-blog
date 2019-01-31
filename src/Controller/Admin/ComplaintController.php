@@ -19,12 +19,7 @@ class ComplaintController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $em = $this->getDoctrine()->getRepository(Complaint::class);
-
-        $query = $em->createQueryBuilder('c')
-            ->select('c')
-            ->orderBy('c.id', 'DESC')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Complaint::class)->findAllComplaintsQuery();
 
         return $this->render('admin/complaint/list.html.twig', [
             'pagination' => $paginator->paginate(
@@ -38,14 +33,7 @@ class ComplaintController extends AbstractController
     public function countAction()
     {
         //$countComplaints = $this->getDoctrine()->getRepository(Complaint::class)->getCountComplaints();
-        $countComplaints = $this->getDoctrine()->getRepository(Complaint::class)
-            ->createQueryBuilder('c')
-            ->join('c.article', 'a')
-            ->select('a.id')
-            ->distinct()
-            ->getQuery()
-            ->getResult()
-            ;
+        $countComplaints = $this->getDoctrine()->getRepository(Complaint::class)->getCountComplaints();
 
         return new Response(count($countComplaints));
     }

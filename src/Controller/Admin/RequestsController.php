@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Requests;
+use App\Services\UserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +20,7 @@ class RequestsController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Requests::class)
-            ->createQueryBuilder('r')
-            ->select('r')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Requests::class)->findAllRequestsQuery();
 
         return $this->render('admin/requests/list.html.twig', [
             'pagination' => $paginator->paginate(
@@ -45,7 +43,7 @@ class RequestsController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function approveAction($id)
+    public function approveAction($id, UserService $userService)
     {
         $request = $this->getDoctrine()->getRepository(Requests::class)->find($id);
 
@@ -59,6 +57,8 @@ class RequestsController extends AbstractController
         $em->remove($request);
         $em->flush();
 
+        $userService->sendApproveBloggerEmail($author);
+
         $this->addFlash('notice', 'Request approved!');
 
         return $this->redirectToRoute('app_admin_requests_list');
@@ -69,9 +69,12 @@ class RequestsController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function refuseAction($id)
+    public function refuseAction($id, UserService $userService)
     {
         $request = $this->getDoctrine()->getRepository(Requests::class)->find($id);
+
+        $userService->sendRefuseBloggerEmail($request->getAuthor());
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($request);
         $em->flush();

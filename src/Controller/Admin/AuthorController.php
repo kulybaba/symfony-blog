@@ -20,10 +20,7 @@ class AuthorController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(User::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(User::class)->findAllAuthorsQuery();
 
         return $this->render('admin/author/list.thml.twig', [
             'pagination' => $paginator->paginate(

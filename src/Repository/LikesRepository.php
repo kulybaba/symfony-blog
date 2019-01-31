@@ -41,6 +41,15 @@ class LikesRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllLikesQuery()
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l')
+            ->orderBy('l.id', 'DESC')
+            ->getQuery()
+            ;
+    }
+
     // /**
     //  * @return Like[] Returns an array of Like objects
     //  */

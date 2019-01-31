@@ -17,11 +17,7 @@ class SiteController extends AbstractController
      */
     public function indexAction(Request $request, PaginatorInterface $paginator)
     {
-        $query = $this->getDoctrine()->getRepository(Article::class)
-            ->createQueryBuilder('a')
-            ->select('a')
-            ->orderBy('a.created', 'DESC')
-            ->getQuery();
+        $query = $this->getDoctrine()->getRepository(Article::class)->findAllArticlesQuery();
 
         return $this->render('site/index.html.twig', [
             'pagination' => $paginator->paginate(
