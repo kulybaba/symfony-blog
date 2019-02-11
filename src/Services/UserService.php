@@ -30,7 +30,7 @@ class UserService extends AbstractController
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
-                    'emails/registration.html.twig',
+                    'user/emails/registration.html.twig',
                     [
                         'firstName' => $user->getFirstName(),
                         'lastName' => $user->getLastName(),
@@ -42,7 +42,7 @@ class UserService extends AbstractController
             )
             ->addPart(
                 $this->renderView(
-                    'emails/registration.txt.twig',
+                    'user/emails/registration.txt.twig',
                     [
                         'firstName' => $user->getFirstName(),
                         'lastName' => $user->getLastName(),
@@ -62,7 +62,7 @@ class UserService extends AbstractController
             ->setTo($author->getEmail())
             ->setBody(
                 $this->renderView(
-                    'emails/request-approved.html.twig',
+                    'user/emails/request-approved.html.twig',
                     [
                         'firstName' => $author->getFirstName(),
                         'lastName' => $author->getLastName(),
@@ -72,7 +72,7 @@ class UserService extends AbstractController
             )
             ->addPart(
                 $this->renderView(
-                    'emails/request-approved.txt.twig',
+                    'user/emails/request-approved.txt.twig',
                     [
                         'firstName' => $author->getFirstName(),
                         'lastName' => $author->getLastName(),
@@ -90,7 +90,7 @@ class UserService extends AbstractController
             ->setTo($author->getEmail())
             ->setBody(
                 $this->renderView(
-                    'emails/request-denied.html.twig',
+                    'user/emails/request-denied.html.twig',
                     [
                         'firstName' => $author->getFirstName(),
                         'lastName' => $author->getLastName(),
@@ -100,7 +100,7 @@ class UserService extends AbstractController
             )
             ->addPart(
                 $this->renderView(
-                    'emails/request-denied.txt.twig',
+                    'user/emails/request-denied.txt.twig',
                     [
                         'firstName' => $author->getFirstName(),
                         'lastName' => $author->getLastName(),

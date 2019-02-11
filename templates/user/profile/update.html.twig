@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% block title %}Symfony Blog - Edit profile - {{ author.firstName }} {{ author.lastName }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        {{ include('breadcrumb.html.twig', { 'crumb': 'Edit profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Edit profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
         <div class="panel panel-default panel-article">
             <div class="panel-body">
                 {{ form_start(form) }}

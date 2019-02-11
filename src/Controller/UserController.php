@@ -29,7 +29,7 @@ class UserController extends AbstractController
 
             $form = $this->createForm(LoginType::class, null, ['lastUsername' => $lastUsername]);
 
-            return $this->render('user/login.html.twig', [
+            return $this->render('user/user/login.html.twig', [
                 'error' => $error,
                 'form' => $form->createView()
             ]);
@@ -67,7 +67,7 @@ class UserController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            return $this->render('user/registration.html.twig', [
+            return $this->render('user/user/registration.html.twig', [
                 'form' => $form->createView()
             ]);
         }

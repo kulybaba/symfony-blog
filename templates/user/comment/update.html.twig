@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% block title %}Symfony Blog - Update comment - {{ comment.id }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        {{ include('breadcrumb.html.twig', { 'crumb': 'Update comment', 'active': comment.id }) }}
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Update comment', 'active': comment.id }) }}
         <div class="panel panel-default panel-article">
             <div class="panel-body">
                 {{ form_start(form) }}

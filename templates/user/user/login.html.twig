@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% block title %}Login{% endblock %}
 
 {% block body %}
     <div class="row">
-        {{ include('breadcrumb.html.twig', { 'crumb': 'Author', 'active': 'Login' }) }}
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Author', 'active': 'Login' }) }}
         <div class="panel panel-default panel-article">
             <div class="panel-body">
                 {{ form_start(form) }}

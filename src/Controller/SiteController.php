@@ -19,7 +19,7 @@ class SiteController extends AbstractController
     {
         $query = $this->getDoctrine()->getRepository(Article::class)->findAllArticlesQuery();
 
-        return $this->render('site/index.html.twig', [
+        return $this->render('user/site/index.html.twig', [
             'pagination' => $paginator->paginate(
                 $query,
                 $request->query->getInt('page', 1),

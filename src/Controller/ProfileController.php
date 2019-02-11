@@ -26,7 +26,7 @@ class ProfileController extends AbstractController
 
         $author = $this->getDoctrine()->getRepository(User::class)->find($id);
 
-        return $this->render('profile/view.html.twig', [
+        return $this->render('user/profile/view.html.twig', [
             'author' => $author
         ]);
     }
@@ -62,7 +62,7 @@ class ProfileController extends AbstractController
                 ]);
             }
 
-            return $this->render('profile/update.html.twig', [
+            return $this->render('user/profile/update.html.twig', [
                 'form' => $form->createView(),
                 'author' => $author
             ]);
@@ -85,7 +85,7 @@ class ProfileController extends AbstractController
         $author = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         if ($this->getUser() == $author || $this->isGranted('ROLE_ADMIN')) {
-            return $this->render('profile/articles.html.twig', [
+            return $this->render('user/profile/articles.html.twig', [
                 'author' => $author
             ]);
         }
@@ -106,7 +106,7 @@ class ProfileController extends AbstractController
         $author = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         if ($this->getUser() == $author || $this->isGranted('ROLE_ADMIN')) {
-            return $this->render('profile/likes.html.twig', [
+            return $this->render('user/profile/likes.html.twig', [
                 'author' => $author
             ]);
         }
@@ -128,7 +128,7 @@ class ProfileController extends AbstractController
         $author = $this->getDoctrine()->getRepository(User::class)->find($id);
 
         if ($this->getUser() == $author || $this->isGranted('ROLE_ADMIN')) {
-            return $this->render('profile/comments.html.twig', [
+            return $this->render('user/profile/comments.html.twig', [
                 'author' => $author
             ]);
         }
@@ -179,7 +179,7 @@ class ProfileController extends AbstractController
                 ]);
             }
 
-            return $this->render('profile/change-picture.html.twig', [
+            return $this->render('user/profile/change-picture.html.twig', [
                 'form' => $form->createView(),
                 'author' => $author
             ]);
