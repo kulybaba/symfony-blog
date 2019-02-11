@@ -118,7 +118,7 @@ class UserService extends AbstractController
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
-                    'emails/change-password.html.twig',
+                    'user/emails/change-password.html.twig',
                     [
                         'firstName' => $user->getFirstName(),
                         'lastName' => $user->getLastName(),
@@ -130,7 +130,7 @@ class UserService extends AbstractController
             )
             ->addPart(
                 $this->renderView(
-                    'emails/change-password.txt.twig',
+                    'user/emails/change-password.txt.twig',
                     [
                         'firstName' => $user->getFirstName(),
                         'lastName' => $user->getLastName(),

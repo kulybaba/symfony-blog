@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation\Timestampable;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
-class Article
+class Article implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -336,5 +336,21 @@ class Article
         }
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'short_text' => $this->getShortText(),
+            'text' => $this->getText(),
+            'picture' => $this->getPicture(),
+            'category' => $this->getCategory(),
+            'tags' => $this->getTag(),
+            'created' => $this->getCreated(),
+            'updated' => $this->getUpdated(),
+            'author' => $this->getAuthor()
+        ];
     }
 }

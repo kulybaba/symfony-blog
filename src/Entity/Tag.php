@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @UniqueEntity(fields="text", message="Tag already taken")
  */
-class Tag
+class Tag implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -78,5 +78,13 @@ class Tag
         }
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'text' => $this->getText()
+        ];
     }
 }
