@@ -11,7 +11,7 @@ class TagController extends AbstractController
     {
         $tags = $this->getDoctrine()->getRepository(Tag::class)->findAll();
 
-        return $this->render('tag/list.html.twig', [
+        return $this->render('user/tag/list.html.twig', [
             'tags' => $tags
         ]);
     }

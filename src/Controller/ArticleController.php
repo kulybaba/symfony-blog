@@ -33,7 +33,7 @@ class ArticleController extends AbstractController
 
         $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByCategoryQuery($category->getId());
 
-        return $this->render('article/category.html.twig', [
+        return $this->render('user/article/category.html.twig', [
             'pagination' => $paginator->paginate(
                 $query,
                 $request->query->getInt('page', 1),
@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
 
         $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByTagQuery($tag->getId());
 
-        return $this->render('article/tag.html.twig', [
+        return $this->render('user/article/tag.html.twig', [
             'pagination' => $paginator->paginate(
                 $query,
                 $request->query->getInt('page', 1),
@@ -68,7 +68,7 @@ class ArticleController extends AbstractController
     {
         $articles = $this->getDoctrine()->getRepository(Article::class)->findLastArticles();
 
-        return $this->render('article/last.html.twig', [
+        return $this->render('user/article/last.html.twig', [
             'articles' => $articles
         ]);
     }
@@ -83,7 +83,7 @@ class ArticleController extends AbstractController
     {
         $query = $this->getDoctrine()->getRepository(Article::class)->findArticlesByArchiveQuery($month, $year);
 
-        return $this->render('article/archive.html.twig', [
+        return $this->render('user/article/archive.html.twig', [
             'pagination' => $paginator->paginate(
                 $query,
                 $request->query->getInt('page', 1),
@@ -141,7 +141,7 @@ class ArticleController extends AbstractController
             ]);
         }
 
-        return $this->render('article/view.html.twig', [
+        return $this->render('user/article/view.html.twig', [
             'article' => $article,
             'tags' => $tags,
             'like' => $like,
@@ -192,7 +192,7 @@ class ArticleController extends AbstractController
             return $this->redirectToRoute('app_site_index');
         }
 
-        return $this->render('article/create.html.twig', [
+        return $this->render('user/article/create.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -261,7 +261,7 @@ class ArticleController extends AbstractController
                 ]);
             }
 
-            return $this->render('article/update.html.twig', [
+            return $this->render('user/article/update.html.twig', [
                 'form' => $form->createView(),
                 'article' => $article
             ]);
@@ -396,7 +396,7 @@ class ArticleController extends AbstractController
                 ]);
             }
 
-            return $this->render('article/change-picture.html.twig', [
+            return $this->render('user/article/change-picture.html.twig', [
                 'form' => $form->createView(),
                 'article' => $article
             ]);

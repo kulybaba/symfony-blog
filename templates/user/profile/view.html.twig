@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% block title %}Symfony Blog - {{ author.firstName }} {{ author.lastName }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        {{ include('alert.html.twig', {'type': 'success'}) }}
-        {{ include('breadcrumb.html.twig', { 'crumb': 'Profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
+        {{ include('user/alert.html.twig', {'type': 'success'}) }}
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
         <div class="panel panel-default panel-article">
             <div class="panel-heading">
                 <div class="row">

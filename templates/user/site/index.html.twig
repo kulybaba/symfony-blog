@@ -1,0 +1,10 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Symfony Blog{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('user/alert.html.twig', {'type': 'success'}) }}
+        {{ include('user/articles.html.twig') }}
+    </div>
+{% endblock %}

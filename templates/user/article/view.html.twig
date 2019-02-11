@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends 'user/base.html.twig' %}
 
 {% block title %}Symfony Blog - Article - {{ article.id }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        {{ include('alert.html.twig', {'type': 'success'}) }}
-        {{ include('breadcrumb.html.twig', { 'crumb': 'View', 'active': article.id }) }}
+        {{ include('user/alert.html.twig', {'type': 'success'}) }}
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'View', 'active': article.id }) }}
         {% if article and article|length > 0 %}
             <div class="panel panel-default panel-article">
                 <div class="panel-heading">
@@ -34,7 +34,7 @@
                 </div>
                 <hr>
                 <div class="panel-body">
-                    {{ include('tag/list.html.twig') }}
+                    {{ include('user/tag/list.html.twig') }}
                 </div>
                 <div class="panel-footer">
                     <div class="row">
@@ -68,6 +68,6 @@
         {% endif %}
     </div>
     <div class="row">
-        {{ include('comment/list.html.twig') }}
+        {{ include('user/comment/list.html.twig') }}
     </div>
 {% endblock %}

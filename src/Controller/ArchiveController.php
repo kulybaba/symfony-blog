@@ -11,7 +11,7 @@ class ArchiveController extends AbstractController
     {
         $archive = $this->getDoctrine()->getRepository(Article::class)->findArchiveList();
 
-        return $this->render('archive/list.html.twig', [
+        return $this->render('user/archive/list.html.twig', [
             'archive' => $archive
         ]);
     }
