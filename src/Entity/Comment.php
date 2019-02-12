@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Comment
+class Comment implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -122,5 +122,17 @@ class Comment
         $this->updated = $updated;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'text' => $this->getText(),
+            'created' => $this->getCreated(),
+            'updated' => $this->getUpdated(),
+            'author' => $this->getAuthor(),
+            'article' => $this->getArticle()
+        ];
     }
 }

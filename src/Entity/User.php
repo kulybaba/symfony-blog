@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email already taken")
  */
-class User implements UserInterface
+class User implements UserInterface, \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -111,6 +111,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Complaint", mappedBy="author", cascade={"persist", "remove"})
      */
     private $complaints;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $apiToken;
 
     public function __construct()
     {
@@ -389,6 +394,31 @@ class User implements UserInterface
                 $complaint->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'firstName' => $this->getFirstName(),
+            'lastName' => $this->getLastName(),
+            'role' => $this->getRoles(),
+            'email' => $this->getEmail(),
+            'api_token' => $this->getApiToken(),
+            'profile' => $this->getProfile()
+        ];
+    }
+
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
 
         return $this;
     }

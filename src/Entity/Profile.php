@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProfileRepository")
  */
-class Profile
+class Profile implements \JsonSerializable
 {
     /**
      * @ORM\Id()
@@ -66,5 +66,14 @@ class Profile
         $this->picture = $picture;
 
         return $this;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId(),
+            'about' => $this->getAbout(),
+            'picture' => $this->getPicture()
+        ];
     }
 }
