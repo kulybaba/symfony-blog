@@ -112,6 +112,11 @@ class User implements UserInterface, \JsonSerializable
      */
     private $complaints;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $apiToken;
+
     public function __construct()
     {
         $this->roles = ['ROLE_READER'];
@@ -401,7 +406,20 @@ class User implements UserInterface, \JsonSerializable
             'lastName' => $this->getLastName(),
             'role' => $this->getRoles(),
             'email' => $this->getEmail(),
+            'api_token' => $this->getApiToken(),
             'profile' => $this->getProfile()
         ];
+    }
+
+    public function getApiToken(): ?string
+    {
+        return $this->apiToken;
+    }
+
+    public function setApiToken(string $apiToken): self
+    {
+        $this->apiToken = $apiToken;
+
+        return $this;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Entity\User;
+use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -141,5 +142,10 @@ class UserService extends AbstractController
                 'text/plain'
             );
         $this->mailer->send($message);
+    }
+
+    public function generateApiToken()
+    {
+        return Uuid::uuid4()->toString();
     }
 }

@@ -15,7 +15,7 @@ class ArticleController extends AbstractController
      */
     public function listAction(Request $request, PaginatorInterface $paginator)
     {
-        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $query = $this->getDoctrine()->getRepository(Article::class)->findAllArticlesQuery();
 
@@ -33,7 +33,7 @@ class ArticleController extends AbstractController
      */
     public function viewAction(Article $article)
     {
-        //$this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         return $this->json($article);
     }
