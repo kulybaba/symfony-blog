@@ -33,6 +33,7 @@ class ArticleFixtures extends Fixture
         $blogger->setEmail('blogger@mail.com');
         $blogger->setRoles(['ROLE_BLOGGER']);
         $blogger->setPlainPassword('111111');
+        $blogger->setApiToken('api1');
         $profile = new Profile();
         $profile->setPicture('/images/profile/default_picture.png');
         $blogger->setProfile($profile);
@@ -45,6 +46,7 @@ class ArticleFixtures extends Fixture
         $admin->setEmail('admin@mail.com');
         $admin->setRoles(['ROLE_ADMIN']);
         $admin->setPlainPassword('111111');
+        $admin->setApiToken('api2');
         $profile = new Profile();
         $profile->setPicture('/images/profile/default_picture.png');
         $admin->setProfile($profile);

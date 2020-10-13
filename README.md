@@ -1,3 +1,17 @@
+**SYMFONY BLOG**
+
+![Main page](./screenshots/screenshot_main_page.png)
+
+![Main page 2](./screenshots/screenshot_main_page_2.png)
+
+![Article](./screenshots/screenshot_article.png)
+
+![Profile](./screenshots/screenshot_profile.png)
+
+![Admin](./screenshots/screenshot_admin.png)
+
+![Admin 2](./screenshots/screenshot_admin_2.png)
+
 **Install:**
 1. git clone https://github.com/petrokulybaba/symfony-blog.git
 2. git checkout dev

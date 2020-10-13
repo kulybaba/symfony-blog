@@ -25,6 +25,7 @@ class UserFixture extends Fixture
         $user->setEmail('reader@mail.com');
         $user->setRoles(['ROLE_READER']);
         $user->setPlainPassword('111111');
+        $user->setApiToken('api');
         $profile = new Profile();
         $profile->setPicture('/images/profile/default_picture.png');
         $user->setProfile($profile);
