@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Likes list{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Likes', 'active': 'List' }) }}
+
+        <a href="{{ path('app_admin_likes_create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create like</a>
+        <br>
+        <br>
+
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th class="text-center">{{ knp_pagination_sortable(pagination, 'ID', 'l.id') }}</th>
+                <th class="text-center">Article</th>
+                <th class="text-center">Author</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% if pagination and pagination|length > 0 %}
+                {% for like in pagination %}
+                    <tr>
+                        <td class="text-center">{{ like.id }}</td>
+                        <td>{{ like.article.title }}</td>
+                        <td>{{ like.author.firstName }} {{ like.author.lastName }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_admin_likes_view', {'id': like.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_likes_update', {'id': like.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_likes_delete', {'id': like.id}) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="text-center">(No likes)</td>
+                </tr>
+            {% endif %}
+        </table>
+        <div class="navigation pull-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}

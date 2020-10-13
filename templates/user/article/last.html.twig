@@ -1,0 +1,9 @@
+<ul class="nav nav-sidebar">
+    {% if articles %}
+        {% for article in articles %}
+            <li><a href="{{ path('app_article_view', {'id': article.id}) }}"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;{{ article.title }}</a></li>
+        {% endfor %}
+    {% else %}
+        <p class="text-center">(No articles)</p>
+    {% endif %}
+</ul>

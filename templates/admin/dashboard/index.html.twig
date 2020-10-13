@@ -1,0 +1,168 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN{% endblock %}
+
+{% block body %}
+    <div class="row thumbnail-row">
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_author_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Authors</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countAuthors }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_article_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Articles</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countArticles }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_likes_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Likes</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countLikes }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_comment_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Comments</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countComments }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_category_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Categories</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countCategories }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2 col-xs-4">
+            <a href="{{ path('app_admin_tag_list') }}" class="thumbnail thumbnail-admin">
+                <div class="well text-center">
+                    <div class="row">
+                        <h4>Tags</h4>
+                    </div>
+                    <div class="row">
+                        <h3><span class="label label-primary">{{ countTags }}</span></h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last authors</b>
+                </div>
+                {% if lastAuthors %}
+                    {% for author in lastAuthors %}
+                        <a href="{{ path('app_admin_author_view', {'id': author.id}) }}" class="list-group-item">{{ author.firstName }} {{ author.lastName }} <span class="badge">{{ author.articles.count }}</span></a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No authors)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last likes</b>
+                </div>
+                {% if lastLikes %}
+                    {% for like in lastLikes %}
+                        <a href="{{ path('app_admin_likes_view', {'id': like.id}) }}" class="list-group-item"><b>{{ like.author.firstName }} {{ like.author.firstName }}</b> liked <b>{{ like.article.title }}</b></a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No likes)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last categories</b>
+                </div>
+                {% if lastCategories %}
+                    {% for category in lastCategories %}
+                        <a href="{{ path('app_admin_category_view', {'id': category.id}) }}" class="list-group-item">{{ category.name }} <span class="badge">{{ category.articles.count }}</span></a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No categories)</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last articles</b>
+                </div>
+                {% if lastArticles %}
+                    {% for article in lastArticles %}
+                        <a href="{{ path('app_admin_article_view', {'id': article.id}) }}" class="list-group-item">{{ article.title }}</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No articles)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last comments</b>
+                </div>
+                {% if lastComments %}
+                    {% for comment in lastComments %}
+                        <a href="{{ path('app_admin_comment_view', {'id': comment.id}) }}" class="list-group-item">{{ comment.text }}</a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No comments)</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="list-group">
+                <div class="list-group-item active text-center">
+                    <b>Last tags</b>
+                </div>
+                {% if lastCategories %}
+                    {% for tag in lastTags %}
+                        <a href="{{ path('app_admin_tag_view', {'id': tag.id}) }}" class="list-group-item">{{ tag.text }} <span class="badge">{{ tag.articles.count }}</span></a>
+                    {% endfor %}
+                {% else %}
+                    <div class="list-group-item text-center">(No tags)</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Symfony Blog - Category - {{ category.name }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Category', 'active': category.name }) }}
+        {{ include('user/articles.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Comment view{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Comments', 'active': 'View' }) }}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-4 col-xs-offset-2 col-xs-8 text-center">
+                        <div class="row text-left">
+                            <p><b>Text:</b> {{ comment.text }}</p>
+                            <br>
+                            <p><b>Author:</b> {{ comment.author.firstName }} {{ comment.author.lastName }}</p>
+                            <br>
+                            <p><b>Article:</b> {{ comment.article.title }}</p>
+                            <br>
+                            <p><b>Created:</b> {{ comment.created|date }}</p>
+                            <br>
+                            <p><b>Updated:</b> {{ comment.updated|date }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-actions">
+                    <div class="col-md-4 col-xs-4 text-left">
+                        <a href="{{ path('app_admin_comment_list') }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-center">
+                        <a href="{{ path('app_admin_comment_delete', {'id': comment.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete</a>
+                    </div>
+                    <div class="col-md-4 col-xs-4 text-right">
+                        <a href="{{ path('app_admin_comment_update', {'id': comment.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Update</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

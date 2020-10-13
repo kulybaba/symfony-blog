@@ -1,0 +1,214 @@
+body {
+    margin-bottom: 50px;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+hr {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.carousel {
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.panel {
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #696969;
+}
+
+.panel > .panel-heading {
+    color: #dcdcdc;
+    background-color: #696969;
+}
+
+.panel > .panel-heading > .row > .col-md-1 > span > a {
+    color: #dcdcdc;
+}
+
+.panel-article {
+    margin-right: 20px;
+}
+
+.alert {
+    margin-right: 20px;
+}
+
+.panel-heading > h3 > a:hover {
+    text-decoration: none;
+}
+
+.panel-body > a {
+    color: black;
+}
+
+.panel-body > ul > li > a {
+    color: black;
+}
+
+.panel-body > a:hover {
+    color: black;
+}
+
+.panel-body > p > b > a {
+    color: black;
+}
+
+.panel-body > p > b > a:hover {
+    text-decoration: none;
+}
+
+.panel-body > p > span > a {
+    color: black;
+}
+
+.panel-default > hr:last-child {
+    visibility: hidden;
+}
+
+.p_category {
+    margin-top: 10px;
+}
+
+.panel-footer > .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.panel-footer > a {
+    color: black;
+}
+
+.panel-footer > span > a {
+    color: black;
+}
+
+.panel-footer > .row > a {
+    color: black;
+}
+
+.panel-footer > .row > span > a {
+    color: black;
+}
+
+.breadcrumb {
+    margin-right: 20px;
+    border: 1px solid #696969;
+}
+
+.breadcrumb > li > a {
+    color: black;
+}
+
+.row-comment {
+    margin-bottom: 15px;
+}
+
+.row-comment:last-child {
+    margin-bottom: 0px;
+}
+
+.row-comment > div > .row > p > b > a {
+    color: black;
+}
+
+.row-profile {
+    margin-top: 15px;
+}
+
+.row-profile > div > a {
+    color: black;
+}
+
+.row-profile > div > a:hover {
+    text-decoration: none;
+}
+
+.display-none {
+    display: none;
+}
+
+input[type=checkbox]:first-child {
+    margin-left: 0px;
+}
+
+input[type=checkbox] {
+    margin-left: 15px;
+    margin-right: 3px;
+}
+
+.row-admin {
+    margin-top: 80px;
+}
+
+.thumbnail-row {
+    margin-top: 80px;
+}
+
+.thumbnail-admin {
+    color: #696969;
+}
+
+.thumbnail-admin:hover {
+    text-decoration: none;
+    color: #696969;
+}
+
+.well {
+    margin: 0px;
+    padding: 30px
+}
+
+.list-group-item.active {
+    background-color: #696969;
+}
+
+.list-group-item.active:hover {
+    background-color: #696969;
+}
+
+.breadcrumb-admin {
+    margin-right: 0px;
+}
+
+table a {
+    color: #696969;
+}
+
+table a:hover {
+    color: #696969;
+}
+
+.pagination > li > a {
+    color: #696969;
+}
+
+.pagination > li > a:hover {
+    color: #696969;
+}
+
+.pagination > .active > span {
+    background-color: #696969;
+}
+
+.pagination > .active > span:hover {
+    background-color: #696969;
+}
+
+.alert-admin {
+    margin-right: 0px;
+}
+
+.row-actions {
+    margin-top: 15px;
+}
+
+.request-sent {
+    color: green;
+}

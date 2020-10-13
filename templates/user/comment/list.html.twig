@@ -1,0 +1,49 @@
+<div class="panel panel-default panel-article">
+    <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;Comments ({{ article.comments.count }}):</h3>
+    </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_BLOGGER') %}
+        <div class="panel-body">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Write</button>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
+    <div class="panel-body">
+        {% if pagination and pagination|length > 0 %}
+            {% for comment in pagination %}
+                <div class="row row-comment">
+                    <div class="col-md-2 col-xs-2 text-center">
+                        <img src="{{ asset('images/profile/default_picture.png') }}" class="img-circle" width="70">
+                    </div>
+                    <div class="col-md-10 col-xs-10">
+                        <div class="row">
+                            <p><b><a href="{{ path('app_profile_view', {'id': comment.author.id}) }}">{{ comment.author.firstName }} {{ comment.author.lastName }}</a></b> ({{ comment.created|date }})</p>
+                        </div>
+                        <div class="row">
+                            <p>{{ comment.text }}</p>
+                        </div>
+                        <div class="row">
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                {% if comment.author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_comment_update', {'article_id': comment.article.id, 'id': comment.id}) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Update</a>
+                                {% endif %}
+                                {% if comment.author.id == app.user.id or article.author.id == app.user.id or is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('app_comment_delete', {'article_id': comment.article.id, 'id': comment.id}) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">(No comments)</p>
+        {% endif %}
+        <div class="row text-center">
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{% if tags and tags|length > 0 %}
+    {% for tag in tags %}
+        <a href="{{ path('app_article_tag', {id: tag.id}) }}"><span class="glyphicon glyphicon-tag"></span> {{ tag.text }}</a>&nbsp;&nbsp;
+    {% endfor %}
+{% else %}
+    <p class="text-center">(No tags)</p>
+{% endif %}

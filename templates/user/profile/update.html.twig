@@ -1,0 +1,18 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Symfony Blog - Edit profile - {{ author.firstName }} {{ author.lastName }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Edit profile', 'active': author.firstName ~ ' ' ~ author.lastName }) }}
+        <div class="panel panel-default panel-article">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <a href="{{ path('app_profile_view', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+                <button class="btn btn-default pull-right" type="submit"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;Update</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

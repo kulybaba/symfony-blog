@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}ADMIN - Comment list{% endblock %}
+
+{% block body %}
+    <div class="row row-admin">
+        {{ include('admin/alert.html.twig', {'type': 'success'}) }}
+        {{ include('admin/breadcrumb.html.twig', { 'crumb': 'Comments', 'active': 'List' }) }}
+
+        <a href="{{ path('app_admin_comment_create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Create comment</a>
+        <br>
+        <br>
+
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <tr>
+                <th class="text-center">{{ knp_pagination_sortable(pagination, 'ID', 'c.id') }}</th>
+                <th class="text-center" {% if pagination.isSorted('c.text') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Text', 'c.text') }}</th>
+                <th class="text-center">Author</th>
+                <th class="text-center">Article</th>
+                <th class="text-center" {% if pagination.isSorted('c.created') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Created', 'c.created') }}</th>
+                <th class="text-center" {% if pagination.isSorted('c.updated') %}class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Updated', 'c.updated') }}</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            {% if pagination and pagination|length > 0 %}
+                {% for comment in pagination %}
+                    <tr>
+                        <td class="text-center">{{ comment.id }}</td>
+                        <td>{{ comment.text }}</td>
+                        <td>{{ comment.author.firstName }} {{ comment.author.lastName }}</td>
+                        <td>{{ comment.article.title }}</td>
+                        <td class="text-center">{{ comment.created|date }}</td>
+                        <td class="text-center">{{ comment.updated|date }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_admin_comment_view', {'id': comment.id}) }}"><span class="glyphicon glyphicon-eye-open"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_comment_update', {'id': comment.id}) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <br>
+                            <a href="{{ path('app_admin_comment_delete', {'id': comment.id}) }}"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">(No comments)</td>
+                </tr>
+            {% endif %}
+        </table>
+        <div class="navigation pull-right">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}

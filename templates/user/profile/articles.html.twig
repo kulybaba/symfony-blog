@@ -1,0 +1,42 @@
+{% extends 'user/base.html.twig' %}
+
+{% block title %}Symfony Blog - {{ author.firstName }} {{ author.lastName }} - My articles{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {{ include('user/breadcrumb.html.twig', { 'crumb': 'Profile', 'active': 'My articles' }) }}
+        <div class="panel panel-default panel-article">
+            <div class="panel-heading">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;My articles</h3>
+            </div>
+            {% if author.articles and author.articles|length > 0 %}
+                {% for article in author.articles %}
+                    <div class="panel-body">
+                        <p><b><a href="{{ path('app_article_view', {'id': article.id}) }}">{{ article.title }}</a></b></p>
+                        <p>{{ article.shortText }}</p>
+                        <p>
+                            <span class="glyphicon glyphicon-heart"></span>&nbsp;&nbsp;{{ article.likes.count }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ article.comments.count }}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;{{ article.tag.count }}
+                            <span class="pull-right">
+                                <span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;{{ article.created|date }}
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="{{ path('app_article_view', {'id': article.id}) }}" class="read_more" data-toggle="tooltip" title="Read more"><span class="glyphicon glyphicon-option-horizontal"></span></a>
+                            </span>
+                        </p>
+                    </div>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <div class="panel-body">
+                    <p class="text-center">(No articles)</p>
+                </div>
+            {% endif %}
+            <div class="panel-body">
+                <a href="{{ path('app_profile_view', {'id': author.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
